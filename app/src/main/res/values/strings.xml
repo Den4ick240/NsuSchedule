@@ -2,4 +2,11 @@
     <string name="app_name">NsuSchedule</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="mondayTab">пн</string>
+    <string name="tuesdayTab">вт</string>
+    <string name="wednesdayTab">ср</string>
+    <string name="thursdayTab">чт</string>
+    <string name="fridayTab">пт</string>
+    <string name="saturdayTab">сб</string>
+    <string name="sundayTab">вс</string>
 </resources>
