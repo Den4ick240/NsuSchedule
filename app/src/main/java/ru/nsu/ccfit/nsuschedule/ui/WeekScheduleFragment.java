@@ -29,7 +29,7 @@ public class WeekScheduleFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_week_schedule, container, false);
+        return inflater.inflate(R.layout.fragment_week_schedule_old, container, false);
     }
 
 

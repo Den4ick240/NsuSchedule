@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/weekScheduleFragment">
     <fragment
         android:id="@+id/weekScheduleFragment"
-        android:name="ru.nsu.ccfit.nsuschedule.ui.WeekScheduleFragment"
-        android:label="week_schedule_fragment"
-        tools:layout="@layout/fragment_week_schedule" />
+        android:name="ru.nsu.ccfit.nsuschedule.ui.week_schedule.WeekScheduleFragment"
+        android:label="WeekScheduleFragment" />
 </navigation>
