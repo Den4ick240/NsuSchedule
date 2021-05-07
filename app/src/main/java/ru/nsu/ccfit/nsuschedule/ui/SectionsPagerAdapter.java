@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.nsuschedule.ui.main;
+package ru.nsu.ccfit.nsuschedule.ui;
 
 import android.content.Context;
 
@@ -63,8 +63,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @NotNull
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
         return PlaceholderFragment.newInstance(calendarList.get(position).get(Calendar.DAY_OF_MONTH));
     }
 

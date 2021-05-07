@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.nsuschedule.ui.main;
+package ru.nsu.ccfit.nsuschedule.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,12 +48,7 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        pageViewModel.getText().observe(this, s -> textView.setText(s));
         return root;
     }
 }

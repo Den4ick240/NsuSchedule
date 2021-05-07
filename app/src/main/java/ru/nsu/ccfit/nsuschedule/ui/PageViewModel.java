@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.nsuschedule.ui.main;
+package ru.nsu.ccfit.nsuschedule.ui;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
