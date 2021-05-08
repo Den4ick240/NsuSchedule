@@ -6,31 +6,24 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import ru.nsu.ccfit.nsuschedule.ui.ScheduleDayFragment;
 
 public class WeekSchedulePagerAdapter extends FragmentStateAdapter {
+    private final WeekScheduleViewModel model;
 
-    private final Date firstDayDate;
-
-    public WeekSchedulePagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, Date firstDayDate) {
+    public WeekSchedulePagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, WeekScheduleViewModel model) {
         super(fragmentManager, lifecycle);
-        this.firstDayDate = firstDayDate;
+        this.model = model;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(firstDayDate);
-        calendar.add(Calendar.DATE, position);
-        return ScheduleDayFragment.newInstance(calendar.getTime());
+        return ScheduleDayFragment.newInstance(model.getDateForPosition(position));
     }
 
     @Override
     public int getItemCount() {
-        return 20000;
+        return model.getNumberOfDays();
     }
 }

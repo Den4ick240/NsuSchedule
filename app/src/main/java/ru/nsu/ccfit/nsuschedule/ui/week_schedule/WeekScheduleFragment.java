@@ -1,6 +1,10 @@
 package ru.nsu.ccfit.nsuschedule.ui.week_schedule;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,12 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import java.util.Date;
 
 import ru.nsu.ccfit.nsuschedule.R;
 
@@ -29,13 +27,14 @@ public class WeekScheduleFragment extends Fragment {
 
         WeekScheduleViewModel model = new ViewModelProvider(this).get(WeekScheduleViewModel.class);
 
-        FragmentStateAdapter adapter = new WeekSchedulePagerAdapter(getParentFragmentManager(), getLifecycle(), new Date());
         ViewPager2 viewPager = view.findViewById(R.id.days_view_pager);
+        FragmentStateAdapter adapter = new WeekSchedulePagerAdapter(getParentFragmentManager(), getLifecycle(), model);
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(model.getStartPosition());
 
         ViewPager2 weekTabsViewPager = view.findViewById(R.id.tab_view_pager);
-        weekTabsViewPager.setAdapter(model.getTabsAdapter(getParentFragmentManager(), getLifecycle()));
+        FragmentStateAdapter tabsAdapter = new WeekTabsPagerAdapter(getParentFragmentManager(), getLifecycle(), model);
+        weekTabsViewPager.setAdapter(tabsAdapter);
+
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -46,6 +45,10 @@ public class WeekScheduleFragment extends Fragment {
         model.getSelectedDayPositionLiveData().observe(getViewLifecycleOwner(), viewPager::setCurrentItem);
         model.getSelectedWeekPositionLiveData().observe(getViewLifecycleOwner(), weekTabsViewPager::setCurrentItem);
 
+        TextView textView = view.findViewById(R.id.current_date_text_view);
+        model.getCurrentDateString().observe(getViewLifecycleOwner(), textView::setText);
+
+        viewPager.setCurrentItem(model.getStartPosition());
     }
 
     @Override
