@@ -1,0 +1,4 @@
+<resources>
+    <integer name="number_of_past_days_shown"> 900 </integer>
+    <integer name="number_of_future_days_shown"> 900 </integer>
+</resources>

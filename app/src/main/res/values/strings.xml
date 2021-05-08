@@ -9,4 +9,6 @@
     <string name="fridayTab">пт</string>
     <string name="saturdayTab">сб</string>
     <string name="sundayTab">вс</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
