@@ -59,9 +59,9 @@ public class ScheduleDayFragment extends Fragment {
     }
 
     class DaysAdapter extends BaseAdapter {
-        private List<ScheduleDayViewModel.ScheduleEvent> eventList = new ArrayList<>();
+        private List<ScheduleEvent> eventList = new ArrayList<>();
 
-        public void setEventList(List<ScheduleDayViewModel.ScheduleEvent> eventList) {
+        public void setEventList(List<ScheduleEvent> eventList) {
             this.eventList = eventList;
             notifyDataSetChanged();
         }
@@ -72,13 +72,13 @@ public class ScheduleDayFragment extends Fragment {
         }
 
         @Override
-        public ScheduleDayViewModel.ScheduleEvent getItem(int position) {
+        public ScheduleEvent getItem(int position) {
             return eventList.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return eventList.get(position).getId();
+            return position;
         }
 
         @Override
@@ -86,7 +86,7 @@ public class ScheduleDayFragment extends Fragment {
             if (item == null) {
                 item = getLayoutInflater().inflate(R.layout.fragment_schedule_item, parent, false);
             }
-            ScheduleDayViewModel.ScheduleEvent event = eventList.get(position);
+            ScheduleEvent event = eventList.get(position);
             ((TextView) item.findViewById(R.id.description)).setText(event.getDescription());
             ((TextView) item.findViewById(R.id.summary)).setText(event.getSummary());
             ((TextView) item.findViewById(R.id.time)).setText(event.getTime());

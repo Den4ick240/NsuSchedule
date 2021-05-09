@@ -3,9 +3,19 @@ package ru.nsu.ccfit.nsuschedule.ui;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
+import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
 
 public class ScheduleDayViewModel extends ViewModel {
     private final MutableLiveData<List<ScheduleEvent>> scheduleEventList =
@@ -13,34 +23,38 @@ public class ScheduleDayViewModel extends ViewModel {
     private Date day;
 
     private void loadSchedule() {
-        List<ScheduleEvent> list = new ArrayList<>();
-        list.add(new ScheduleEvent() {
+        GetEventsForDay getEventsForDay = new GetEventsForDay();
+
+        Callable<List<Event>> task;
+        task = () -> getEventsForDay.getEvents(day);
+        Observable<List<ScheduleEvent>> observable = Observable
+                .fromCallable(task)
+                .map(l ->
+                        l.stream().map(ScheduleEvent::new).collect(Collectors.toList())
+                )
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread());
+        observable.subscribe(new Observer<List<ScheduleEvent>>() {
             @Override
-            public CharSequence getSummary() {
-                return "first";
+            public void onSubscribe(@NonNull Disposable d) {
+                //unused
             }
 
             @Override
-            public CharSequence getDescription() {
-                return "desc first";
+            public void onNext(@NonNull List<ScheduleEvent> scheduleEvents) {
+                scheduleEventList.setValue(scheduleEvents);
             }
 
             @Override
-            public CharSequence getLocation() {
-                return "location";
+            public void onError(@NonNull Throwable e) {
+                //unused TODO:errormessage
             }
 
             @Override
-            public CharSequence getTime() {
-                return "10-34";
-            }
-
-            @Override
-            public int getId() {
-                return 1;
+            public void onComplete() {
+                //unused
             }
         });
-        scheduleEventList.setValue(list);
     }
 
     public MutableLiveData<List<ScheduleEvent>> getScheduleEventList() {
@@ -52,15 +66,5 @@ public class ScheduleDayViewModel extends ViewModel {
         loadSchedule();
     }
 
-    public interface ScheduleEvent {
-        CharSequence getSummary();
 
-        CharSequence getDescription();
-
-        CharSequence getLocation();
-
-        CharSequence getTime();
-
-        int getId();
-    }
 }

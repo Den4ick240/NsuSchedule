@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.nsuschedule.ui.week_schedule;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +17,14 @@ import androidx.viewpager2.widget.ViewPager2;
 import ru.nsu.ccfit.nsuschedule.R;
 
 public class WeekScheduleFragment extends Fragment {
+    private static final int OFFSCREEN_PAGE_LIMIT = 10;
+    private static final int WEEK_TABS_OFFSCREEN_PAGE_LIMIT = 10;
 
     public static WeekScheduleFragment newInstance() {
         return new WeekScheduleFragment();
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -28,10 +32,12 @@ public class WeekScheduleFragment extends Fragment {
         WeekScheduleViewModel model = new ViewModelProvider(this).get(WeekScheduleViewModel.class);
 
         ViewPager2 viewPager = view.findViewById(R.id.days_view_pager);
+        viewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
         FragmentStateAdapter adapter = new WeekSchedulePagerAdapter(getParentFragmentManager(), getLifecycle(), model);
         viewPager.setAdapter(adapter);
 
         ViewPager2 weekTabsViewPager = view.findViewById(R.id.tab_view_pager);
+        weekTabsViewPager.setOffscreenPageLimit(WEEK_TABS_OFFSCREEN_PAGE_LIMIT);
         FragmentStateAdapter tabsAdapter = new WeekTabsPagerAdapter(getParentFragmentManager(), getLifecycle(), model);
         weekTabsViewPager.setAdapter(tabsAdapter);
 

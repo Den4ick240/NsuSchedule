@@ -7,4 +7,6 @@
         android:id="@+id/weekScheduleFragment"
         android:name="ru.nsu.ccfit.nsuschedule.ui.week_schedule.WeekScheduleFragment"
         android:label="WeekScheduleFragment" />
+
 </navigation>
+
