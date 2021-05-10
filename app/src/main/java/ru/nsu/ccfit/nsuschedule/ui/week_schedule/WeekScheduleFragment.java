@@ -30,15 +30,14 @@ public class WeekScheduleFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         WeekScheduleViewModel model = new ViewModelProvider(this).get(WeekScheduleViewModel.class);
-
         ViewPager2 viewPager = view.findViewById(R.id.days_view_pager);
         viewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
-        FragmentStateAdapter adapter = new WeekSchedulePagerAdapter(getParentFragmentManager(), getLifecycle(), model);
+        FragmentStateAdapter adapter = new WeekSchedulePagerAdapter(getChildFragmentManager(), getLifecycle(), model);
         viewPager.setAdapter(adapter);
 
         ViewPager2 weekTabsViewPager = view.findViewById(R.id.tab_view_pager);
         weekTabsViewPager.setOffscreenPageLimit(WEEK_TABS_OFFSCREEN_PAGE_LIMIT);
-        FragmentStateAdapter tabsAdapter = new WeekTabsPagerAdapter(getParentFragmentManager(), getLifecycle(), model);
+        FragmentStateAdapter tabsAdapter = new WeekTabsPagerAdapter(getChildFragmentManager(), getLifecycle(), model);
         weekTabsViewPager.setAdapter(tabsAdapter);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -54,7 +53,7 @@ public class WeekScheduleFragment extends Fragment {
         TextView textView = view.findViewById(R.id.current_date_text_view);
         model.getCurrentDateString().observe(getViewLifecycleOwner(), textView::setText);
 
-        viewPager.setCurrentItem(model.getStartPosition());
+        viewPager.setCurrentItem(model.getCurrentPosition());
     }
 
     @Override

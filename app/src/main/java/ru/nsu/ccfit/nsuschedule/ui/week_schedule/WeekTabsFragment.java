@@ -12,12 +12,24 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import ru.nsu.ccfit.nsuschedule.R;
 
 
 public class WeekTabsFragment extends Fragment {
+    private static final int[] DAYS_OF_WEEK_TITLES = new int[]{
+            R.string.sundayTab,
+            R.string.mondayTab,
+            R.string.tuesdayTab,
+            R.string.wednesdayTab,
+            R.string.thursdayTab,
+            R.string.fridayTab,
+            R.string.saturdayTab
+    };
     interface OnPositionSelectedListener {
         void selected(int position);
     }
@@ -59,8 +71,7 @@ public class WeekTabsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        WeekTabsViewModel model = new ViewModelProvider(this).get(WeekTabsViewModel.class);
-
+        WeekTabNamesProvider model = new WeekTabNamesProvider(Arrays.stream(DAYS_OF_WEEK_TITLES).mapToObj(i -> getResources().getString(i)).collect(Collectors.toList()));
         tabs = view.findViewById(R.id.week_day_tabs);
 
         for (CharSequence name : model.getTabNames(firstDayDate, numberOfDays)) {

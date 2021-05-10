@@ -24,8 +24,9 @@ class WeekTabsPagerAdapter extends FragmentStateAdapter {
                 model.onPositionSelected(model.getGlobalPosition(dayOfWeekPosition, weekPosition)));
 
         model.getSelectedDayPositionLiveData().observe(weekTabsFragment, globalPosition -> {
-            if (weekPosition == model.getWeekPosition(globalPosition))
+            if (weekPosition == model.getWeekPosition(globalPosition)) {
                 weekTabsFragment.selectTab(model.getDayOfWeekPosition(globalPosition));
+            }
         });
         return weekTabsFragment;
     }

@@ -30,6 +30,7 @@ public class WeekScheduleViewModel extends ViewModel {
         numberOfWeeks = 10;
         numberOfDays = numberOfWeeks * DAYS_IN_WEEK;
         currentDayPosition = 2;
+        selectedDayPosition.setValue(currentDayPosition);
     }
 
     public LiveData<Integer> getSelectedDayPositionLiveData() {
@@ -57,7 +58,7 @@ public class WeekScheduleViewModel extends ViewModel {
     }
 
     public Date getDateForWeekPosition(int weekPosition) {
-        return getDateForPosition(weekPosition * DAYS_IN_WEEK);
+        return getDateForPosition(getGlobalPosition(0, weekPosition));
     }
 
     public Date getDateForPosition(int dayPosition) {
@@ -86,5 +87,9 @@ public class WeekScheduleViewModel extends ViewModel {
 
     public int getNumberOfDays() {
         return numberOfDays;
+    }
+
+    public int getCurrentPosition() {
+        return selectedDayPosition.getValue();
     }
 }

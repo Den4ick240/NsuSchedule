@@ -16,7 +16,8 @@ public class GetEventsForDay {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(day);
         calendar.add(Calendar.HOUR, 1);
-        events.add(new Event(new EventInfo("test description", "test summary", "test location"), new EventDate(Repeating.ONCE,
+        events.add(new Event(new EventInfo("test description", "test summary", "test location"),
+                new EventDate(Repeating.ONCE,
                 day, calendar.getTime())));
         return events;
     }

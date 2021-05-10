@@ -34,6 +34,7 @@ public class ScheduleDayViewModel extends ViewModel {
                 )
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread());
+
         observable.subscribe(new Observer<List<ScheduleEvent>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
@@ -47,7 +48,7 @@ public class ScheduleDayViewModel extends ViewModel {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                //unused TODO:errormessage
+                //unused
             }
 
             @Override
