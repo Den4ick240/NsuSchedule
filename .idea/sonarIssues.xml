@@ -58,6 +58,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/data/JsonRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/data/MockRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/Repository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/Event.java">
           <value>
             <set />
@@ -114,6 +129,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/ui/PlaceholderFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/ui/RepositoryHolderViewModel.java">
           <value>
             <set />
           </value>

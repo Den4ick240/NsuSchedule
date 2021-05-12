@@ -14,6 +14,7 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import ru.nsu.ccfit.nsuschedule.data.JsonRepository;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
 
@@ -21,9 +22,13 @@ public class ScheduleDayViewModel extends ViewModel {
     private final MutableLiveData<List<ScheduleEvent>> scheduleEventList =
             new MutableLiveData<>();
     private Date day;
+    private final GetEventsForDay getEventsForDay;
+
+    public ScheduleDayViewModel() {
+        this.getEventsForDay = new GetEventsForDay(new JsonRepository());
+    }
 
     private void loadSchedule() {
-        GetEventsForDay getEventsForDay = new GetEventsForDay();
 
         Callable<List<Event>> task;
         task = () -> getEventsForDay.getEvents(day);
