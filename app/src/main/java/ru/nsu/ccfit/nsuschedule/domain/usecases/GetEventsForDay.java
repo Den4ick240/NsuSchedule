@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.nsuschedule.domain.usecases;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,7 @@ public class GetEventsForDay {
         this.repository = repository;
     }
 
-    public List<Event> getEvents(Date day) {
+    public List<Event> getEvents(Date day) throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(day);
         calendar.add(Calendar.DATE, 1);

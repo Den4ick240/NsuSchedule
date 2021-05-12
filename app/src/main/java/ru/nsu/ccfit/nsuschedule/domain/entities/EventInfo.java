@@ -1,15 +1,17 @@
 package ru.nsu.ccfit.nsuschedule.domain.entities;
 
-public class EventInfo {
-    private final String description;
-    private final String summary;
-    private final String location;
+import com.google.gson.annotations.SerializedName;
 
-    public EventInfo(String description, String summary, String location) {
-        this.description = description;
-        this.summary = summary;
-        this.location = location;
-    }
+public class EventInfo {
+
+    @SerializedName("description")
+    private String description;
+
+    @SerializedName("summary")
+    private String summary;
+
+    @SerializedName("location")
+    private String location;
 
     public String getDescription() {
         return description;
@@ -21,5 +23,17 @@ public class EventInfo {
 
     public String getLocation() {
         return location;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

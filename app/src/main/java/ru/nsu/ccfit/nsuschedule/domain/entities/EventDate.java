@@ -1,17 +1,19 @@
 package ru.nsu.ccfit.nsuschedule.domain.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class EventDate {
-    private final Repeating repeating;
-    private final Date startDate;
-    private final Date endDate;
 
-    public EventDate(Repeating repeating, Date startDate, Date endDate) {
-        this.repeating = repeating;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
+    @SerializedName("repeating")
+    private Repeating repeating;
+
+    @SerializedName("startDate")
+    private Date startDate;
+
+    @SerializedName("endDate")
+    private Date endDate;
 
     public Repeating getRepeating() {
         return repeating;
@@ -23,5 +25,17 @@ public class EventDate {
 
     public Date getEndDate() {
         return endDate;
+    }
+
+    public void setRepeating(Repeating repeating) {
+        this.repeating = repeating;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

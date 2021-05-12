@@ -1,8 +1,14 @@
 package ru.nsu.ccfit.nsuschedule.ui;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -18,14 +24,15 @@ import ru.nsu.ccfit.nsuschedule.data.JsonRepository;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
 
-public class ScheduleDayViewModel extends ViewModel {
+public class ScheduleDayViewModel extends AndroidViewModel {
     private final MutableLiveData<List<ScheduleEvent>> scheduleEventList =
             new MutableLiveData<>();
     private Date day;
     private final GetEventsForDay getEventsForDay;
 
-    public ScheduleDayViewModel() {
-        this.getEventsForDay = new GetEventsForDay(new JsonRepository());
+    public ScheduleDayViewModel(@androidx.annotation.NonNull @NotNull Application application) throws IOException {
+        super(application);
+        this.getEventsForDay = new GetEventsForDay(new JsonRepository(application.getApplicationContext()));
     }
 
     private void loadSchedule() {
