@@ -61,6 +61,9 @@ public class JsonEvent {
         repeating = event.getDate().getRepeating();
     }
 
+    public JsonEvent() {
+    }
+
     public Event getEvent() {
         return new Event(new EventInfo(summary, description, location), new EventDate(startDate, endDate, repeating));
     }

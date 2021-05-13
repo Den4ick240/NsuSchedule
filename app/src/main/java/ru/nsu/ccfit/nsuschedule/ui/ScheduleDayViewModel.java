@@ -29,9 +29,7 @@ public class ScheduleDayViewModel extends ViewModel {
 
 
     private void loadSchedule() {
-
-        Callable<List<Event>> task;
-        task = () -> getEventsForDay.getEvents(day);
+        Callable<List<Event>> task = () -> getEventsForDay.getEvents(day);
         Observable<List<ScheduleEvent>> observable = Observable
                 .fromCallable(task)
                 .map(l ->
