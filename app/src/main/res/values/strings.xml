@@ -12,4 +12,7 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Расписание</string>
+    <string name="nav_my_schedule_title">Мое расписание</string>
+    <string name="nav_create_event_title">Добавить событие в расписание</string>
 </resources>
