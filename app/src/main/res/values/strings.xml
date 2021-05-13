@@ -15,4 +15,11 @@
     <string name="nav_header_title">Расписание</string>
     <string name="nav_my_schedule_title">Мое расписание</string>
     <string name="nav_create_event_title">Добавить событие в расписание</string>
+    <string name="summary">Название</string>
+    <string name="description">Описание</string>
+    <string name="location">Место</string>
+    <string name="create_event_button_title">Создать событие</string>
+    <string name="create_event_choose_date_title">Выберите дату</string>
+    <string name="create_event_start_time_title">Время начала</string>
+    <string name="create_event_end_time_title">Время окончания</string>
 </resources>
