@@ -1,12 +1,13 @@
 package ru.nsu.ccfit.nsuschedule.domain.usecases;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import ru.nsu.ccfit.nsuschedule.domain.Repository;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
+import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
+import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 
 public class GetEventsForDay {
     private final Repository repository;
@@ -15,10 +16,15 @@ public class GetEventsForDay {
         this.repository = repository;
     }
 
-    public List<Event> getEvents(Date day) throws IOException {
+    public List<Event> getEvents(Date day) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(day);
         calendar.add(Calendar.DATE, 1);
-        return repository.getEventsInRange(day, calendar.getTime());
+        try {
+            return repository.getEventsInRange(day, calendar.getTime());
+        } catch (RepositoryException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }

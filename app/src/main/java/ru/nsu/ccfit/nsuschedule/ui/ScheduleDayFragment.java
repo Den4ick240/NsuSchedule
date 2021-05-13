@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ru.nsu.ccfit.nsuschedule.ApplicationWithAppContainer;
 import ru.nsu.ccfit.nsuschedule.R;
 
 
@@ -45,8 +46,9 @@ public class ScheduleDayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ListView listView = view.findViewById(R.id.list_view);
-
-        ScheduleDayViewModel model = new ViewModelProvider(this).get(ScheduleDayViewModel.class);
+        ViewModelProvider.Factory factory = ((ApplicationWithAppContainer)getActivity().getApplication()).getAppContainer()
+                .scheduleDayViewModelFactory;
+        ScheduleDayViewModel model = new ViewModelProvider(this, factory).get(ScheduleDayViewModel.class);
         DaysAdapter adapter = new DaysAdapter();
         model.setDay(day);
         model.getScheduleEventList().observe(getViewLifecycleOwner(), adapter::setEventList);

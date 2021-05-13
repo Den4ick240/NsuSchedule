@@ -1,14 +1,13 @@
 package ru.nsu.ccfit.nsuschedule.domain.entities;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Event {
+    public Event(EventInfo eventInfo, EventDate eventDate) {
+        info = eventInfo;
+        date = eventDate;
+    }
 
-    @SerializedName("info")
-    private EventInfo info;
-
-    @SerializedName("date")
-    private EventDate date;
+    private final EventInfo info;
+    private final EventDate date;
 
     public EventInfo getInfo() {
         return info;
@@ -16,13 +15,5 @@ public class Event {
 
     public EventDate getDate() {
         return date;
-    }
-
-    public void setInfo(EventInfo info) {
-        this.info = info;
-    }
-
-    public void setDate(EventDate date) {
-        this.date = date;
     }
 }
