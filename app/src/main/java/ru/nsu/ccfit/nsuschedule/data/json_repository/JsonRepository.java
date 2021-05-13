@@ -52,9 +52,9 @@ public class JsonRepository implements Repository {
 
     @Override
     public void addEvent(Event event) throws RepositoryException {
+        String string;
         try (
-                BufferedReader reader = new BufferedReader(new FileReader(userEventsFile));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(userEventsFile))
+                BufferedReader reader = new BufferedReader(new FileReader(userEventsFile))
         ) {
             Gson gson = new Gson();
             EventList eventList = gson.fromJson(reader, EventList.class);
@@ -62,7 +62,15 @@ public class JsonRepository implements Repository {
                 eventList = new EventList();
             }
             eventList.addEvent(event);
-            String string = gson.toJson(eventList);
+            string = gson.toJson(eventList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RepositoryException(e.getMessage(), e.getCause());
+        }
+
+        try (
+            BufferedWriter writer = new BufferedWriter(new FileWriter(userEventsFile))
+        ){
             writer.write(string);
         } catch (IOException e) {
             e.printStackTrace();
