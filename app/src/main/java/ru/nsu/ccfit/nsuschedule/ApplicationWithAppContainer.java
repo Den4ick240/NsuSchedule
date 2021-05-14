@@ -13,6 +13,7 @@ import ru.nsu.ccfit.nsuschedule.data.json_repository.JsonRepository;
 import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEvent;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
+import ru.nsu.ccfit.nsuschedule.domain.usecases.RemoveEvent;
 import ru.nsu.ccfit.nsuschedule.ui.ScheduleDayViewModel;
 import ru.nsu.ccfit.nsuschedule.ui.create_event.CreateEventViewModel;
 
@@ -36,14 +37,12 @@ public class ApplicationWithAppContainer extends Application {
 
     private AppContainer createAppContainer() throws IOException {
         Repository repository = new JsonRepository(this);
-        GetEventsForDay getEventsForDay = new GetEventsForDay(repository);
-        AddEvent addEvent = new AddEvent(repository);
         ViewModelProvider.Factory scheduleDayViewModelFactory =
                 new ViewModelProvider.Factory() {
                     @NotNull
                     @Override
                     public <T extends ViewModel> T create(@NotNull Class<T> modelClass) {
-                        return (T) new ScheduleDayViewModel(getEventsForDay);
+                        return (T) new ScheduleDayViewModel(new GetEventsForDay(repository), new RemoveEvent(repository));
                     }
                 };
         ViewModelProvider.Factory createEventViewModelFactory =
@@ -51,9 +50,9 @@ public class ApplicationWithAppContainer extends Application {
                     @NotNull
                     @Override
                     public <T extends ViewModel> T create(@NotNull Class<T> modelClass) {
-                        return (T) new CreateEventViewModel(addEvent);
+                        return (T) new CreateEventViewModel(new AddEvent(repository));
                     }
                 };
-        return new AppContainer(getEventsForDay, scheduleDayViewModelFactory, createEventViewModelFactory);
+        return new AppContainer(scheduleDayViewModelFactory, createEventViewModelFactory);
     }
 }

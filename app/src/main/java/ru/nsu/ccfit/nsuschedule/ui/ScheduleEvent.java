@@ -24,7 +24,11 @@ public class ScheduleEvent {
     }
 
     public CharSequence getTime() {
-        DateFormat format = DateFormat.getTimeInstance();
+        DateFormat format = DateFormat.getDateTimeInstance();
         return format.format(e.getDate().getStartDate()) + "-" + format.format(e.getDate().getEndDate());
+    }
+
+    public Event getEvent() {
+        return e;
     }
 }

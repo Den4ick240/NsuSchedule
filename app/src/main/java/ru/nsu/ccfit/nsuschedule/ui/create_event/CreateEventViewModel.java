@@ -37,9 +37,9 @@ public class CreateEventViewModel extends ViewModel {
 
     public void addEvent(String summary, String description, String location) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(getCurrentYear(), getCurrentMonth(), getCurrentDay(), getStartHour(), getStartMinute());
+        calendar.set(getCurrentYear(), getCurrentMonth(), getCurrentDay(), getStartHour(), getStartMinute(), 0);
         Date startDate = calendar.getTime();
-        calendar.set(getCurrentYear(), getCurrentMonth(), getCurrentDay(), getEndHour(), getEndMinute());
+        calendar.set(getCurrentYear(), getCurrentMonth(), getCurrentDay(), getEndHour(), getEndMinute(), 0);
         Date endDate = calendar.getTime();
         Runnable task = () ->
         {
@@ -58,15 +58,8 @@ public class CreateEventViewModel extends ViewModel {
     }
 
 
-
     public LiveData<Void> getEventCreated() {
         return eventCreated;
-    }
-
-    public String makeDateString(int day, int month, int year) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        return makeDateString(calendar.getTime());
     }
 
     public String makeDateString(Date date) {
@@ -127,7 +120,7 @@ public class CreateEventViewModel extends ViewModel {
     }
 
     public void onStartTimeSet(int hourOfDay, int minute) {
-        startTime.set(0,0,0, hourOfDay, minute);
+        startTime.set(0, 0, 0, hourOfDay, minute);
         updateStartTimeString();
     }
 
@@ -136,7 +129,7 @@ public class CreateEventViewModel extends ViewModel {
     }
 
     public void onEndTimeSet(int hourOfDay, int minute) {
-        endTime.set(0,0,0, hourOfDay, minute);
+        endTime.set(0, 0, 0, hourOfDay, minute);
         updateEndTimeString();
     }
 

@@ -1,9 +1,12 @@
 package ru.nsu.ccfit.nsuschedule.ui;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +30,8 @@ public class ScheduleDayFragment extends Fragment {
 
     private static final String DAY_PARAM = "day";
     private Date day;
+    private ScheduleDayViewModel model;
+    private boolean visible;
 
     public static ScheduleDayFragment newInstance(Date day) {
         ScheduleDayFragment fragment = new ScheduleDayFragment();
@@ -35,6 +42,29 @@ public class ScheduleDayFragment extends Fragment {
     }
 
     @Override
+    public void onCreateContextMenu(@NonNull @NotNull ContextMenu menu, @NonNull @NotNull View v, @Nullable @org.jetbrains.annotations.Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        requireActivity().getMenuInflater().inflate(R.menu.event_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if (!visible) return false;
+        if (item.getItemId() == R.id.delete_event_item) {
+            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            model.deleteEvent(menuInfo.position);
+        }
+        return true;
+    }
+
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        visible = menuVisible;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -42,13 +72,15 @@ public class ScheduleDayFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ListView listView = view.findViewById(R.id.list_view);
-        ViewModelProvider.Factory factory = ((ApplicationWithAppContainer)getActivity().getApplication()).getAppContainer()
+        listView.setOnCreateContextMenuListener(this);
+        ViewModelProvider.Factory factory = ((ApplicationWithAppContainer) requireActivity().getApplication()).getAppContainer()
                 .scheduleDayViewModelFactory;
-        ScheduleDayViewModel model = new ViewModelProvider(this, factory).get(ScheduleDayViewModel.class);
+        model = new ViewModelProvider(this, factory).get(ScheduleDayViewModel.class);
         DaysAdapter adapter = new DaysAdapter();
         model.setDay(day);
         model.getScheduleEventList().observe(getViewLifecycleOwner(), adapter::setEventList);

@@ -22,7 +22,6 @@ import ru.nsu.ccfit.nsuschedule.ui.week_schedule.WeekScheduleFragment;
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
-    private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
     private int selectedId = R.id.nav_my_schedule;
 
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
 
-        nvDrawer = findViewById(R.id.nvView);
+        NavigationView nvDrawer = findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
         selectFragment(WeekScheduleFragment.newInstance());
@@ -64,20 +63,11 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem) {
         if (selectedId != menuItem.getItemId()) {
             selectedId = menuItem.getItemId();
-            Fragment fragment = null;
-            Class fragmentClass;
-            switch (selectedId) {
-                case R.id.nav_create_event:
-                    fragmentClass = CreateEventFragment.class;
-                    break;
-                default:
-                    fragmentClass = WeekScheduleFragment.class;
-            }
-
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
+            Fragment fragment;
+            if (selectedId == R.id.nav_create_event) {
+                fragment = CreateEventFragment.newInstance();
+            } else {
+                fragment = WeekScheduleFragment.newInstance();
             }
             selectFragment(fragment);
         }

@@ -3,6 +3,7 @@ package ru.nsu.ccfit.nsuschedule.data.json_repository;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.Objects;
 
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.entities.EventDate;
@@ -66,5 +67,23 @@ public class JsonEvent {
 
     public Event getEvent() {
         return new Event(new EventInfo(summary, description, location), new EventDate(startDate, endDate, repeating));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JsonEvent jsonEvent = (JsonEvent) o;
+        return description.equals(jsonEvent.description) &&
+                summary.equals(jsonEvent.summary) &&
+                location.equals(jsonEvent.location) &&
+                repeating == jsonEvent.repeating &&
+                startDate.equals(jsonEvent.startDate) &&
+                endDate.equals(jsonEvent.endDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, summary, location, repeating, startDate, endDate);
     }
 }
