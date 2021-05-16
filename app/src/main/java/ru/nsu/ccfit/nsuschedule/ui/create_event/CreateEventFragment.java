@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import ru.nsu.ccfit.nsuschedule.AppContainer;
@@ -34,6 +36,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
     private Button dateButton;
     private Button endTimeButton;
     private Button startTimeButton;
+    private Snackbar snackbar;
 
     public static CreateEventFragment newInstance() {
         return new CreateEventFragment();
@@ -62,6 +65,9 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
         ArrayAdapter<String> dropDownAdapter = new ArrayAdapter<>(requireContext(), R.layout.repeating_dropdown_item, dropDownItems);
         repeating.setAdapter(dropDownAdapter);
 
+        snackbar = Snackbar.make(
+                view.findViewById(R.id.coordinator_layout),
+                getResources().getString(R.string.snackbar_event_created), BaseTransientBottomBar.LENGTH_LONG);
         return view;
     }
 
@@ -73,6 +79,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                 requireActivity(),
                 appContainer.createEventViewModelFactory
         ).get(CreateEventViewModel.class);
+        viewModel.getEventCreated().observe(getViewLifecycleOwner(), unused -> showEventCreatedSnackBar());
         initDatePicker();
         initEndTimePicker();
         initStartTimePicker();
@@ -132,4 +139,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                 true);
     }
 
+    private void showEventCreatedSnackBar() {
+        snackbar.show();
+    }
 }
