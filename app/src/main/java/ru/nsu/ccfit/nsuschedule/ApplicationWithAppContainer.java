@@ -8,7 +8,8 @@ import androidx.lifecycle.ViewModelProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.EnumMap;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import ru.nsu.ccfit.nsuschedule.data.json_repository.JsonRepository;
@@ -53,19 +54,19 @@ public class ApplicationWithAppContainer extends Application {
                     @NotNull
                     @Override
                     public <T extends ViewModel> T create(@NotNull Class<T> modelClass) {
-                        return (T) new CreateEventViewModel(new AddEvent(repository));
+                        return (T) new CreateEventViewModel(getRepeatingEnumTranslationMap(), new AddEvent(repository));
                     }
                 };
-        return new AppContainer(getRepeatingEnumTranslationMap(), scheduleDayViewModelFactory, createEventViewModelFactory);
+        return new AppContainer(scheduleDayViewModelFactory, createEventViewModelFactory);
     }
 
-    private Map<Repeating, String> getRepeatingEnumTranslationMap() {
-        String[] keys = getResources().getStringArray(R.array.repeating_enum_keys);
-        String[] values = getResources().getStringArray(R.array.repeating_enum_values);
-        Map<Repeating, String> map = new EnumMap<>(Repeating.class);
-        for (int i = 0; i < Math.min(keys.length, values.length); i++) {
-            map.put(Repeating.valueOf(keys[i]), values[i]);
+    private Map<String, Repeating> getRepeatingEnumTranslationMap() {
+        String[] enumValues = getResources().getStringArray(R.array.repeating_enum_values);
+        String[] keys = getResources().getStringArray(R.array.repeating_enum_translations);
+        Map<String, Repeating> map = new HashMap<>();
+        for (int i = 0; i < Math.min(enumValues.length, keys.length); i++) {
+            map.put(keys[i], Repeating.valueOf(enumValues[i]));
         }
-        return map;
+        return Collections.unmodifiableMap(map);
     }
 }

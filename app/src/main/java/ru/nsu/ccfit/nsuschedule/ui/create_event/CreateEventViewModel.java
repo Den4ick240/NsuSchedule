@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.entities.EventDate;
@@ -26,8 +27,10 @@ public class CreateEventViewModel extends ViewModel {
     private final MutableLiveData<String> startTimeStringLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> endTimeStringLiveData = new MutableLiveData<>();
     private final DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
+    private final Map<String, Repeating> repeatingStringToEnumMap;
 
-    public CreateEventViewModel(AddEvent addEvent) {
+    public CreateEventViewModel(Map<String, Repeating> repeatingEnumTranslationMap, AddEvent addEvent) {
+        repeatingStringToEnumMap = repeatingEnumTranslationMap;
         this.addEvent = addEvent;
         selectedDay = Calendar.getInstance();
         startTime = Calendar.getInstance();
@@ -35,7 +38,7 @@ public class CreateEventViewModel extends ViewModel {
         updateSelectedDateString();
     }
 
-    public void addEvent(String summary, String description, String location) {
+    public void addEvent(String summary, String description, String location, String repeatingString) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(getCurrentYear(), getCurrentMonth(), getCurrentDay(), getStartHour(), getStartMinute(), 0);
         Date startDate = calendar.getTime();
@@ -47,7 +50,7 @@ public class CreateEventViewModel extends ViewModel {
                 addEvent.add(
                         new Event(
                                 new EventInfo(summary, description, location),
-                                new EventDate(startDate, endDate, Repeating.ONCE)));
+                                new EventDate(startDate, endDate, repeatingStringToEnumMap.get(repeatingString))));
                 eventCreated.postValue(null);
             } catch (RepositoryException e) {
                 e.printStackTrace();
