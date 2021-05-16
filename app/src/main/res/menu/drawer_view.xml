@@ -2,7 +2,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_my_schedule"
+            android:title="@string/nav_my_schedule_title"/>
+        <item
             android:id="@+id/nav_create_event"
-            android:title="Добавить событие в расписание" />
+            android:title="@string/nav_create_event_title" />
     </group>
 </menu>

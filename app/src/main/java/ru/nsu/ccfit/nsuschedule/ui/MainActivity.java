@@ -7,18 +7,23 @@ import android.view.MenuItem;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
 
+import org.jetbrains.annotations.NotNull;
+
 import ru.nsu.ccfit.nsuschedule.R;
+import ru.nsu.ccfit.nsuschedule.ui.create_event.CreateEventFragment;
+import ru.nsu.ccfit.nsuschedule.ui.week_schedule.WeekScheduleFragment;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
-    private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
+    private int selectedId = R.id.nav_my_schedule;
 
 
     @Override
@@ -36,9 +41,12 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
 
-        nvDrawer = findViewById(R.id.nvView);
+        NavigationView nvDrawer = findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
+
+        selectFragment(WeekScheduleFragment.newInstance());
     }
+
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
@@ -53,11 +61,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        if (menuItem.getItemId() == R.id.nav_create_event) {
-            //TODO: navigate to create event view
+        if (selectedId != menuItem.getItemId()) {
+            selectedId = menuItem.getItemId();
+            Fragment fragment;
+            if (selectedId == R.id.nav_create_event) {
+                fragment = CreateEventFragment.newInstance();
+            } else {
+                fragment = WeekScheduleFragment.newInstance();
+            }
+            selectFragment(fragment);
         }
         menuItem.setChecked(true);
         mDrawer.closeDrawers();
+    }
+
+    private void selectFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
     }
 
     @Override
@@ -75,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NotNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }

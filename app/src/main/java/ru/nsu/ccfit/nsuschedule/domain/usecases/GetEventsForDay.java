@@ -6,19 +6,25 @@ import java.util.Date;
 import java.util.List;
 
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
-import ru.nsu.ccfit.nsuschedule.domain.entities.EventDate;
-import ru.nsu.ccfit.nsuschedule.domain.entities.EventInfo;
-import ru.nsu.ccfit.nsuschedule.domain.entities.Repeating;
+import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
+import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 
 public class GetEventsForDay {
+    private final Repository repository;
+
+    public GetEventsForDay(Repository repository) {
+        this.repository = repository;
+    }
+
     public List<Event> getEvents(Date day) {
-        ArrayList<Event> events = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(day);
-        calendar.add(Calendar.HOUR, 1);
-        events.add(new Event(new EventInfo("test description", "test summary", "test location"),
-                new EventDate(Repeating.ONCE,
-                day, calendar.getTime())));
-        return events;
+        calendar.add(Calendar.DATE, 1);
+        try {
+            return repository.getEventsInRange(day, calendar.getTime());
+        } catch (RepositoryException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }

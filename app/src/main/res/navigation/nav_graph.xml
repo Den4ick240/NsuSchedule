@@ -8,6 +8,11 @@
         android:id="@+id/weekScheduleFragment"
         android:name="ru.nsu.ccfit.nsuschedule.ui.week_schedule.WeekScheduleFragment"
         android:label="WeekScheduleFragment" />
+    <fragment
+        android:id="@+id/createEventFragment"
+        android:name="ru.nsu.ccfit.nsuschedule.ui.create_event.CreateEventFragment"
+        android:label="create_event_fragment"
+        tools:layout="@layout/create_event_fragment" />
 
 </navigation>
 

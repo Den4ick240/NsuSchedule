@@ -15,18 +15,25 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
+import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
+import ru.nsu.ccfit.nsuschedule.domain.usecases.RemoveEvent;
 
 public class ScheduleDayViewModel extends ViewModel {
     private final MutableLiveData<List<ScheduleEvent>> scheduleEventList =
             new MutableLiveData<>();
     private Date day;
+    private final GetEventsForDay getEventsForDay;
+    private final RemoveEvent removeEvent;
+
+    public ScheduleDayViewModel(GetEventsForDay getEventsForDay, RemoveEvent removeEvent) {
+        this.getEventsForDay = getEventsForDay;
+        this.removeEvent = removeEvent;
+    }
+
 
     private void loadSchedule() {
-        GetEventsForDay getEventsForDay = new GetEventsForDay();
-
-        Callable<List<Event>> task;
-        task = () -> getEventsForDay.getEvents(day);
+        Callable<List<Event>> task = () -> getEventsForDay.getEvents(day);
         Observable<List<ScheduleEvent>> observable = Observable
                 .fromCallable(task)
                 .map(l ->
@@ -58,6 +65,7 @@ public class ScheduleDayViewModel extends ViewModel {
         });
     }
 
+
     public MutableLiveData<List<ScheduleEvent>> getScheduleEventList() {
         return scheduleEventList;
     }
@@ -68,4 +76,14 @@ public class ScheduleDayViewModel extends ViewModel {
     }
 
 
+    public void deleteEvent(int position) {
+        new Thread(() -> {
+            try {
+                removeEvent.remove(scheduleEventList.getValue().get(position).getEvent());
+            } catch (RepositoryException e) {
+                e.printStackTrace();
+            }
+            loadSchedule();
+        }).start();
+    }
 }

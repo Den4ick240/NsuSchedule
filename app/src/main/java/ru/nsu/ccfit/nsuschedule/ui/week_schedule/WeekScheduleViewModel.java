@@ -26,10 +26,21 @@ public class WeekScheduleViewModel extends ViewModel {
     }
 
     public WeekScheduleViewModel() {
-        firstDay = new Date();
-        numberOfWeeks = 10;
+        int weeksBefore = 10;
+        int weeksAfter = 10;
+        int daysBefore = weeksBefore * DAYS_IN_WEEK;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        int currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        calendar.add(Calendar.DATE, 2-currentDayOfWeek);
+        calendar.add(Calendar.DATE, -daysBefore);
+        currentDayPosition = daysBefore + currentDayOfWeek - 2;
+        firstDay = calendar.getTime();
+        numberOfWeeks = weeksAfter + weeksBefore;
         numberOfDays = numberOfWeeks * DAYS_IN_WEEK;
-        currentDayPosition = 2;
         selectedDayPosition.setValue(currentDayPosition);
     }
 
