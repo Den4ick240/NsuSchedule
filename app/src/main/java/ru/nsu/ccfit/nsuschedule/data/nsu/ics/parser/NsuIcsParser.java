@@ -11,9 +11,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
+import ru.nsu.ccfit.nsuschedule.domain.entities.Repeating;
 
 public class NsuIcsParser {
 
@@ -61,4 +63,45 @@ public class NsuIcsParser {
             function.apply(property, event);
         }
     }
+
+    private static final Map<String, BiFunction<Property, Event, Event>> propertyMap = Map.of(
+            ParseValue.LOCATION, (property, event) -> {
+                String[] parameters = property.getValue().split(COLON);
+                event.getInfo().setLocation(parameters[1].trim());
+                return event;
+            },
+            ParseValue.DESCRIPTION, (property, event) -> {
+                String[] parameters = property.getValue().split(COLON);
+                event.getInfo().setDescription(parameters[1].trim());
+                return event;
+            },
+            ParseValue.SUMMARY, (property, event) -> {
+                event.getInfo().setSummary(property.getValue());
+                return event;
+            },
+            ParseValue.DTSTART, (property, event) -> {
+                event.getDate().setStartDate(new DateParser().parse(property.getValue()));
+                return event;
+            },
+            ParseValue.DTEND, (property, event) -> {
+                event.getDate().setEndDate(new DateParser().parse(property.getValue()));
+                return event;
+            },
+            ParseValue.RRULE, (property, event) -> {
+                String[] parameters = property.getValue().split(SEMICOLON);
+                for (String currentParameter : parameters) {
+                    String[] currentParameterValues = currentParameter.split(EQUALLY);
+                    if (currentParameterValues[0].equals(ParseValue.INTERVAL)) {
+                        event.getDate().setRepeating(Integer.parseInt(currentParameterValues[1]) == 1 ?
+                                Repeating.WEEK
+                                :
+                                Repeating.TWO_WEEK);
+                    }
+                    if (currentParameterValues[0].equals(ParseValue.UNTIL)) {
+                        event.getDate().setUntilDate(new DateParser().parse(currentParameterValues[1]));
+                    }
+                }
+                return event;
+            }
+    );
 }
