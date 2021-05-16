@@ -1,5 +1,7 @@
 package ru.nsu.ccfit.nsuschedule.domain.entities;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 
 public class EventDate {
@@ -13,13 +15,16 @@ public class EventDate {
         this.startDate = startDate;
         this.endDate = endDate;
         this.repeating = repeating;
-        this.repeatUntilDate = repeatUntilDate;
+        this.untilDate = repeatUntilDate;
     }
 
-    private final Repeating repeating;
-    private final Date startDate;
-    private final Date endDate;
-    private final Date repeatUntilDate;
+    public EventDate() {
+    }
+
+    private Repeating repeating;
+    private Date startDate;
+    private Date endDate;
+    private Date untilDate;
 
     public Repeating getRepeating() {
         return repeating;
@@ -33,7 +38,29 @@ public class EventDate {
         return endDate;
     }
 
-    public Date getRepeatUntilDate() {
-        return repeatUntilDate;
+    public void setRepeating(Repeating repeating) {
+        this.repeating = repeating;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getUntilDate() {
+        return untilDate;
+    }
+
+    public void setUntilDate(Date untilDate) {
+        this.untilDate = untilDate;
+    }
+
+    @NotNull
+    @Override
+    public String toString() {
+        return "st=" + startDate + " en=" + endDate + " un" + untilDate + "re=" + repeating;
     }
 }
