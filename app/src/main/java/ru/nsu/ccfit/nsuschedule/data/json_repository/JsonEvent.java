@@ -29,6 +29,9 @@ public class JsonEvent {
     @SerializedName("endDate")
     private Date endDate;
 
+    @SerializedName("repeatUntilDate")
+    private Date repeatUntilDate;
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -53,6 +56,10 @@ public class JsonEvent {
         this.endDate = endDate;
     }
 
+    public void setRepeatUntilDate(Date repeatUntilDate) {
+        this.repeatUntilDate = repeatUntilDate;
+    }
+
     public JsonEvent(Event event) {
         summary = event.getInfo().getSummary();
         description = event.getInfo().getDescription();
@@ -60,13 +67,14 @@ public class JsonEvent {
         startDate = event.getDate().getStartDate();
         endDate = event.getDate().getEndDate();
         repeating = event.getDate().getRepeating();
+        repeatUntilDate = event.getDate().getRepeatUntilDate();
     }
 
     public JsonEvent() {
     }
 
     public Event getEvent() {
-        return new Event(new EventInfo(summary, description, location), new EventDate(startDate, endDate, repeating));
+        return new Event(new EventInfo(summary, description, location), new EventDate(startDate, endDate, repeating, repeatUntilDate));
     }
 
     @Override

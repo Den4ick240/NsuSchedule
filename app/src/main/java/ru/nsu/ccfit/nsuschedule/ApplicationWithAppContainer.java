@@ -8,8 +8,11 @@ import androidx.lifecycle.ViewModelProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.EnumMap;
+import java.util.Map;
 
 import ru.nsu.ccfit.nsuschedule.data.json_repository.JsonRepository;
+import ru.nsu.ccfit.nsuschedule.domain.entities.Repeating;
 import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEvent;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
@@ -53,6 +56,16 @@ public class ApplicationWithAppContainer extends Application {
                         return (T) new CreateEventViewModel(new AddEvent(repository));
                     }
                 };
-        return new AppContainer(scheduleDayViewModelFactory, createEventViewModelFactory);
+        return new AppContainer(getRepeatingEnumTranslationMap(), scheduleDayViewModelFactory, createEventViewModelFactory);
+    }
+
+    private Map<Repeating, String> getRepeatingEnumTranslationMap() {
+        String[] keys = getResources().getStringArray(R.array.repeating_enum_keys);
+        String[] values = getResources().getStringArray(R.array.repeating_enum_values);
+        Map<Repeating, String> map = new EnumMap<>(Repeating.class);
+        for (int i = 0; i < Math.min(keys.length, values.length); i++) {
+            map.put(Repeating.valueOf(keys[i]), values[i]);
+        }
+        return map;
     }
 }
