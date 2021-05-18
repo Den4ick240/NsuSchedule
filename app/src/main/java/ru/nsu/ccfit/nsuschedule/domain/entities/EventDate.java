@@ -9,13 +9,10 @@ import java.util.Optional;
 public class EventDate {
 
     public EventDate(Date startDate, Date endDate, Repeating repeating) {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(Long.MAX_VALUE);
         this.startDate = startDate;
         this.endDate = endDate;
         this.repeating = repeating;
-        repeatUntilDate = calendar.getTime();
+        repeatUntilDate = new Date(Long.MAX_VALUE);
     }
 
     public EventDate(Date startDate, Date endDate, Repeating repeating, Date repeatUntilDate) {
@@ -57,7 +54,8 @@ public class EventDate {
         if (!optionalEventOccurrence.isPresent()) return occurrences;
         EventOccurrence eventOccurrence = optionalEventOccurrence.get();
 
-        while (eventOccurrence.startsBefore(endDate) && eventOccurrence.startsBefore(repeatUntilDate)) {
+        while (eventOccurrence.startsBefore(endDate) &&
+                eventOccurrence.startsBefore(repeatUntilDate)) {
             occurrences.add(new EventOccurrence(eventOccurrence));
             eventOccurrence.moveToNext(repeating);
             if (repeating.equals(Repeating.ONCE)) break;
