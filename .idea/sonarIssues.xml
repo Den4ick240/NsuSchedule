@@ -118,6 +118,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventOccurence.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventOccurrence.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/Repeating.java">
           <value>
             <set />
@@ -354,6 +364,31 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventDateTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventOccurrenceTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/ru/nsu/ccfit/nsuschedule/domain/entities/OccursBetween.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/ru/nsu/ccfit/nsuschedule/domain/entities/RepeatingTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/ru/nsu/ccfit/nsuschedule/domain/entities/StartsBetweenMatcher.java">
           <value>
             <set />
           </value>

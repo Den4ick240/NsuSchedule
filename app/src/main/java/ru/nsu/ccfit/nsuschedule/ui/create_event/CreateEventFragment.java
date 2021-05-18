@@ -19,6 +19,8 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Optional;
+
 import ru.nsu.ccfit.nsuschedule.AppContainer;
 import ru.nsu.ccfit.nsuschedule.ApplicationWithAppContainer;
 import ru.nsu.ccfit.nsuschedule.R;
@@ -103,10 +105,16 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
     private void addEvent() {
         viewModel.addEvent(
-                summary.getEditText().getText().toString(),
-                description.getEditText().getText().toString(),
-                location.getEditText().getText().toString(),
+                getText(summary),
+                getText(description),
+                getText(location),
                 repeating.getText().toString());
+    }
+
+    private String getText(TextInputLayout input) {
+        return Optional.ofNullable(input.getEditText())
+                .map(t -> t.getText().toString())
+                .orElse("");
     }
 
     private void initDatePicker() {
