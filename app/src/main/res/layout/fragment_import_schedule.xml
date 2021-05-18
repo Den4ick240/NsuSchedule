@@ -8,6 +8,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
+        android:hint="@string/download_from_url_hint"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -22,6 +23,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/download_from_url_button_label" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="40dp"
+        android:hint="@string/group_number_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/group_number_text_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_marginTop="5dp"
+        android:id="@+id/download_nsu_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/download_from_nsu_button_label" />
 
 
 </LinearLayout>

@@ -9,9 +9,11 @@ import ru.nsu.ccfit.nsuschedule.domain.usecases.AddScheduleFromUrl;
 
 public class ImportScheduleViewModel extends ViewModel {
     private final AddScheduleFromUrl addScheduleFromUrl;
+    private final String nsuLinkForGroup;
 
-    public ImportScheduleViewModel(AddScheduleFromUrl addScheduleFromUrl) {
+    public ImportScheduleViewModel(AddScheduleFromUrl addScheduleFromUrl, String nsuLinkForGroup) {
         this.addScheduleFromUrl = addScheduleFromUrl;
+        this.nsuLinkForGroup = nsuLinkForGroup;
     }
 
     public void downloadFromUrl(String url) {
@@ -21,5 +23,9 @@ public class ImportScheduleViewModel extends ViewModel {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void downloadFromNsu(String s) {
+        downloadFromUrl(nsuLinkForGroup + s);
     }
 }

@@ -1,16 +1,14 @@
 package ru.nsu.ccfit.nsuschedule.ui.import_schedule;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -23,6 +21,7 @@ public class ImportScheduleFragment extends Fragment implements View.OnClickList
 
     private ImportScheduleViewModel viewModel;
     private TextInputEditText urlTextEdit;
+    private TextInputEditText groupNumberTextEdit;
 
     public static ImportScheduleFragment newInstance() {
         return new ImportScheduleFragment();
@@ -33,7 +32,9 @@ public class ImportScheduleFragment extends Fragment implements View.OnClickList
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_import_schedule, container, false);
         view.findViewById(R.id.download_url_button).setOnClickListener(this);
+        view.findViewById(R.id.download_nsu_button).setOnClickListener(this);
         urlTextEdit = view.findViewById(R.id.download_url_edit_text);
+        groupNumberTextEdit = view.findViewById(R.id.group_number_text_edit);
         return view;
     }
 
@@ -49,8 +50,14 @@ public class ImportScheduleFragment extends Fragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.download_url_button) {
-            viewModel.downloadFromUrl(Optional.ofNullable(urlTextEdit.getText())
-                    .map(Object::toString).orElse(""));
+            Optional.ofNullable(urlTextEdit.getText())
+                    .map(Object::toString)
+                    .ifPresent(viewModel::downloadFromUrl);
+        }
+        if (v.getId() == R.id.download_nsu_button) {
+            Optional.ofNullable(groupNumberTextEdit.getText())
+                    .map(Object::toString)
+                    .ifPresent(viewModel::downloadFromNsu);
         }
     }
 }

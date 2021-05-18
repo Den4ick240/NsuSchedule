@@ -55,6 +55,7 @@ public class ApplicationWithAppContainer extends Application {
     }
 
     private AppContainer createAppContainer() throws IOException {
+        String nsuLinkForGroup = getResources().getString(R.string.nsu_link_for_group);
         String filePath = getFilesDir().getPath() + "/downloadedFile.ics";
         Repository repository = new JsonRepository(this);
         ViewModelProvider.Factory scheduleDayViewModelFactory = createFactory(unused ->
@@ -62,7 +63,7 @@ public class ApplicationWithAppContainer extends Application {
         ViewModelProvider.Factory createEventViewModelFactory = createFactory(unused ->
                 new CreateEventViewModel(getRepeatingEnumTranslationMap(), new AddEvent(repository)));
         ViewModelProvider.Factory importScheduleViewModelFactory = createFactory(unused ->
-                new ImportScheduleViewModel(new AddScheduleFromUrl(filePath, repository)));
+                new ImportScheduleViewModel(new AddScheduleFromUrl(filePath, repository), nsuLinkForGroup));
         return new AppContainer(scheduleDayViewModelFactory, createEventViewModelFactory, importScheduleViewModelFactory);
     }
 
