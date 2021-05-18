@@ -36,6 +36,10 @@
     </string-array>
     <string name="repeating_enum_default_value">Не повторяется</string>
     <string name="snackbar_event_created">Событие создано!</string>
+    <string name="createEventFragmentLabel">Создать событие</string>
+    <string name="weekScheduleFragmentLabel">Расписание</string>
+    <string name="download_from_url_button_label">Скачать по ссылке</string>
+    <string name="nav_import_schedule_title">Загрузить расписание</string>
     <string-array name="repeating_enum_translations">
         <item>@string/repeating_enum_default_value</item>
         <item>Повторяется каждый день</item>

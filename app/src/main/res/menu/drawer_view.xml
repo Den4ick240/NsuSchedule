@@ -2,10 +2,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_my_schedule"
+            android:id="@+id/weekScheduleFragment"
             android:title="@string/nav_my_schedule_title"/>
         <item
-            android:id="@+id/nav_create_event"
+            android:id="@+id/createEventFragment"
             android:title="@string/nav_create_event_title" />
+        <item
+            android:id="@+id/importScheduleFragment"
+            android:title="@string/nav_import_schedule_title" />
     </group>
 </menu>
