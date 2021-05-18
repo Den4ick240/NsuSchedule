@@ -2,6 +2,7 @@ package ru.nsu.ccfit.nsuschedule;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,15 +12,18 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import ru.nsu.ccfit.nsuschedule.data.json_repository.JsonRepository;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Repeating;
 import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEvent;
+import ru.nsu.ccfit.nsuschedule.domain.usecases.AddScheduleFromUrl;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.RemoveEvent;
 import ru.nsu.ccfit.nsuschedule.ui.ScheduleDayViewModel;
 import ru.nsu.ccfit.nsuschedule.ui.create_event.CreateEventViewModel;
+import ru.nsu.ccfit.nsuschedule.ui.import_schedule.ImportScheduleViewModel;
 
 public class ApplicationWithAppContainer extends Application {
     private AppContainer appContainer;
@@ -39,25 +43,26 @@ public class ApplicationWithAppContainer extends Application {
         return appContainer;
     }
 
+    private ViewModelProvider.Factory createFactory(Function<Class, ViewModel> factory) {
+        return new ViewModelProvider.Factory() {
+            @NonNull
+            @NotNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull @NotNull Class<T> modelClass) {
+                return (T) factory.apply(modelClass);
+            }
+        };
+    }
+
     private AppContainer createAppContainer() throws IOException {
         Repository repository = new JsonRepository(this);
-        ViewModelProvider.Factory scheduleDayViewModelFactory =
-                new ViewModelProvider.Factory() {
-                    @NotNull
-                    @Override
-                    public <T extends ViewModel> T create(@NotNull Class<T> modelClass) {
-                        return (T) new ScheduleDayViewModel(new GetEventsForDay(repository), new RemoveEvent(repository));
-                    }
-                };
-        ViewModelProvider.Factory createEventViewModelFactory =
-                new ViewModelProvider.Factory() {
-                    @NotNull
-                    @Override
-                    public <T extends ViewModel> T create(@NotNull Class<T> modelClass) {
-                        return (T) new CreateEventViewModel(getRepeatingEnumTranslationMap(), new AddEvent(repository));
-                    }
-                };
-        return new AppContainer(scheduleDayViewModelFactory, createEventViewModelFactory);
+        ViewModelProvider.Factory scheduleDayViewModelFactory = createFactory(unused ->
+                new ScheduleDayViewModel(new GetEventsForDay(repository), new RemoveEvent(repository)));
+        ViewModelProvider.Factory createEventViewModelFactory = createFactory(unused ->
+                new CreateEventViewModel(getRepeatingEnumTranslationMap(), new AddEvent(repository)));
+        ViewModelProvider.Factory importScheduleViewModelFactory = createFactory(unused ->
+                new ImportScheduleViewModel(new AddScheduleFromUrl()));
+        return new AppContainer(scheduleDayViewModelFactory, createEventViewModelFactory, importScheduleViewModelFactory);
     }
 
     private Map<String, Repeating> getRepeatingEnumTranslationMap() {

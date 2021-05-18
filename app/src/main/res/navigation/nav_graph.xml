@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/weekScheduleFragment">
     <fragment
@@ -12,6 +13,11 @@
         android:id="@+id/createEventFragment"
         android:name="ru.nsu.ccfit.nsuschedule.ui.create_event.CreateEventFragment"
         android:label="@string/createEventFragmentLabel"/>
+    <fragment
+        android:id="@+id/importScheduleFragment"
+        android:name="ru.nsu.ccfit.nsuschedule.ui.import_schedule.ImportScheduleFragment"
+        android:label="@string/nav_import_schedule_title"
+        tools:layout="@layout/fragment_import_schedule" />
 
 </navigation>
 
