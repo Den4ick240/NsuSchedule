@@ -112,4 +112,16 @@ public class EventDate {
     public Date getRepeatUntilDate() {
         return repeatUntilDate;
     }
+
+    @Override
+    public String toString() {
+        return "EventDate{" +
+                "repeating=" + repeating +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", repeatUntilDate=" + repeatUntilDate +
+                '}';
+    }
+
+
 }

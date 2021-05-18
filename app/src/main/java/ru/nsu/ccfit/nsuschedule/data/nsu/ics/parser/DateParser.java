@@ -2,12 +2,13 @@ package ru.nsu.ccfit.nsuschedule.data.nsu.ics.parser;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class DateParser {
 
     public Date parse(String value) {
-        Calendar calendar = new GregorianCalendar();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(0,0,0,0,0, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
         char[] year = new char[4];
         value.getChars(0, 4, year, 0);
@@ -15,7 +16,7 @@ public class DateParser {
 
         char[] month = new char[2];
         value.getChars(4, 6, month, 0);
-        calendar.set(Calendar.MONTH, Integer.parseInt(String.valueOf(month)));
+        calendar.set(Calendar.MONTH, Integer.parseInt(String.valueOf(month)) - 1);
 
         char[] day = new char[2];
         value.getChars(6, 8, day, 0);

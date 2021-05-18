@@ -11,6 +11,7 @@ public class LoadFileFromServerUseCase {
 
     public File loadByUrl(URL url, String fileDestinationPath) throws IOException {
         File result = new File(fileDestinationPath);
+        result.createNewFile();
         ReadableByteChannel rbc = Channels.newChannel(url.openConnection().getInputStream());
         FileOutputStream nsuScheduleFOS = new FileOutputStream(result);
         nsuScheduleFOS.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
