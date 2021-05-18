@@ -77,7 +77,7 @@ public class ScheduleDayViewModel extends ViewModel {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                //unused
+                e.printStackTrace();
             }
 
             @Override

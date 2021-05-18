@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import ru.nsu.ccfit.nsuschedule.data.json_repository.JsonRepository;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
@@ -104,5 +106,4 @@ class EventDateTest {
         eventOccurrence.setStart(Calendar.YEAR, 3);
         assertThat(eventDate, not(occursBetween(eventOccurrence.getStartDate(), eventOccurrence.getEndDate())));
     }
-
 }

@@ -26,7 +26,7 @@ public class EventOccurrence {
         return !startsBefore(startDate) && startsBefore(endDate);
     }
 
-    public boolean startsBefore(Date when) {
+    public boolean startsBefore(@NotNull Date when) {
         return startDate.getTime().before(when);
     }
 
