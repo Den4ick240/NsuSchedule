@@ -98,7 +98,7 @@ public class NsuIcsParser {
                                 Repeating.TWO_WEEK);
                     }
                     if (currentParameterValues[0].equals(ParseValue.UNTIL)) {
-                        event.getDate().setUntilDate(new DateParser().parse(currentParameterValues[1]));
+                        event.getDate().setRepeatUntilDate(new DateParser().parse(currentParameterValues[1]));
                     }
                 }
                 return event;

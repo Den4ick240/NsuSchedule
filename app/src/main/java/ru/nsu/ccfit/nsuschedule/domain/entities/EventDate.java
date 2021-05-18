@@ -2,8 +2,6 @@ package ru.nsu.ccfit.nsuschedule.domain.entities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +25,31 @@ public class EventDate {
         this.repeatUntilDate = repeatUntilDate;
     }
 
-    private final Repeating repeating;
-    private final Date startDate;
-    private final Date endDate;
-    private final Date repeatUntilDate;
+    private Repeating repeating;
+    private Date startDate;
+    private Date endDate;
+
+    public void setRepeating(Repeating repeating) {
+        this.repeating = repeating;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setRepeatUntilDate(Date repeatUntilDate) {
+        this.repeatUntilDate = repeatUntilDate;
+    }
+
+    private Date repeatUntilDate;
+
+    public EventDate() {
+
+    }
 
     public List<EventOccurrence> getOccurrencesBetweenDates(Date startDate, Date endDate) {
         List<EventOccurrence> occurrences = new ArrayList<>();
