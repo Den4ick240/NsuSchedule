@@ -9,4 +9,5 @@ public interface Repository {
     List<Event> getEventsInRange(Date startDate, Date endDate) throws RepositoryException;
     void addEvent(Event event) throws RepositoryException;
     void removeEvent(Event event) throws RepositoryException;
+    void addEvents(Iterable<Event> events) throws RepositoryException;
 }

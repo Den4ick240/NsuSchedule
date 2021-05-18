@@ -7,5 +7,8 @@
         <item
             android:id="@+id/createEventFragment"
             android:title="@string/nav_create_event_title" />
+        <item
+            android:id="@+id/importScheduleFragment"
+            android:title="@string/nav_import_schedule_title" />
     </group>
 </menu>

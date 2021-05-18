@@ -12,6 +12,15 @@ import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 
 public abstract class AbstractRepository implements Repository {
     @Override
+    public void addEvents(Iterable<Event> events) throws RepositoryException {
+        changeEventList(eventList -> {
+                    for (Event event : events) eventList.addEvent(event);
+                    return eventList;
+                }
+        );
+    }
+
+    @Override
     public List<Event> getEventsInRange(Date startDate, Date endDate) throws RepositoryException {
         return readEventList().getEventList().stream()
                 .filter(event ->
