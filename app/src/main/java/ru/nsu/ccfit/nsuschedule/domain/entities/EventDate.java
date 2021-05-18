@@ -22,10 +22,31 @@ public class EventDate {
         this.repeatUntilDate = repeatUntilDate;
     }
 
-    private final Repeating repeating;
-    private final Date startDate;
-    private final Date endDate;
-    private final Date repeatUntilDate;
+    private Repeating repeating;
+    private Date startDate;
+    private Date endDate;
+
+    public void setRepeating(Repeating repeating) {
+        this.repeating = repeating;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setRepeatUntilDate(Date repeatUntilDate) {
+        this.repeatUntilDate = repeatUntilDate;
+    }
+
+    private Date repeatUntilDate;
+
+    public EventDate() {
+
+    }
 
     public List<EventOccurrence> getOccurrencesBetweenDates(Date startDate, Date endDate) {
         List<EventOccurrence> occurrences = new ArrayList<>();
@@ -91,4 +112,16 @@ public class EventDate {
     public Date getRepeatUntilDate() {
         return repeatUntilDate;
     }
+
+    @Override
+    public String toString() {
+        return "EventDate{" +
+                "repeating=" + repeating +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", repeatUntilDate=" + repeatUntilDate +
+                '}';
+    }
+
+
 }

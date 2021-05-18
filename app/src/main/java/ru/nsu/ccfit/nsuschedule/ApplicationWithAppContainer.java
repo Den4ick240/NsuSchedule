@@ -55,13 +55,14 @@ public class ApplicationWithAppContainer extends Application {
     }
 
     private AppContainer createAppContainer() throws IOException {
+        String filePath = getFilesDir().getPath() + "/downloadedFile.ics";
         Repository repository = new JsonRepository(this);
         ViewModelProvider.Factory scheduleDayViewModelFactory = createFactory(unused ->
                 new ScheduleDayViewModel(new GetEventsForDay(repository), new RemoveEvent(repository)));
         ViewModelProvider.Factory createEventViewModelFactory = createFactory(unused ->
                 new CreateEventViewModel(getRepeatingEnumTranslationMap(), new AddEvent(repository)));
         ViewModelProvider.Factory importScheduleViewModelFactory = createFactory(unused ->
-                new ImportScheduleViewModel(new AddScheduleFromUrl()));
+                new ImportScheduleViewModel(new AddScheduleFromUrl(filePath, repository)));
         return new AppContainer(scheduleDayViewModelFactory, createEventViewModelFactory, importScheduleViewModelFactory);
     }
 
