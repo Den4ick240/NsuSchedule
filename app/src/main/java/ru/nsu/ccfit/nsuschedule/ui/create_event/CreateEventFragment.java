@@ -47,8 +47,8 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.create_event_fragment, container, false);
-        ((Button) view.findViewById(R.id.create_event_button)).setOnClickListener(this);
+        View view = inflater.inflate(R.layout.fragment_create_event, container, false);
+        view.findViewById(R.id.create_event_button).setOnClickListener(this);
 
         dateButton = view.findViewById(R.id.date_picker_button);
         dateButton.setOnClickListener(this);
