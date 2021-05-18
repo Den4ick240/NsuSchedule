@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -13,12 +15,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
-import java.util.Objects;
-
+import ru.nsu.ccfit.nsuschedule.AppContainer;
 import ru.nsu.ccfit.nsuschedule.ApplicationWithAppContainer;
 import ru.nsu.ccfit.nsuschedule.R;
 
@@ -28,13 +31,14 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
     private TextInputLayout summary;
     private TextInputLayout description;
     private TextInputLayout location;
+    private AutoCompleteTextView repeating;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog startTimePickerDialog;
     private TimePickerDialog endTimePickerDialog;
     private Button dateButton;
     private Button endTimeButton;
     private Button startTimeButton;
-
+    private Snackbar snackbar;
 
     public static CreateEventFragment newInstance() {
         return new CreateEventFragment();
@@ -43,12 +47,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.create_event_fragment, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        View view = inflater.inflate(R.layout.create_event_fragment, container, false);
         ((Button) view.findViewById(R.id.create_event_button)).setOnClickListener(this);
 
         dateButton = view.findViewById(R.id.date_picker_button);
@@ -59,18 +58,30 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
         location = view.findViewById(R.id.location_text_input);
         endTimeButton = view.findViewById(R.id.end_time_button);
         startTimeButton = view.findViewById(R.id.start_time_button);
+        repeating = view.findViewById(R.id.repeating_text_view);
 
         startTimeButton.setOnClickListener(this);
         endTimeButton.setOnClickListener(this);
+
+        String[] dropDownItems = getResources().getStringArray(R.array.repeating_enum_translations);
+        ArrayAdapter<String> dropDownAdapter = new ArrayAdapter<>(requireContext(), R.layout.repeating_dropdown_item, dropDownItems);
+        repeating.setAdapter(dropDownAdapter);
+
+        snackbar = Snackbar.make(
+                view.findViewById(R.id.coordinator_layout),
+                getResources().getString(R.string.snackbar_event_created), BaseTransientBottomBar.LENGTH_LONG);
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        AppContainer appContainer = ((ApplicationWithAppContainer) requireActivity().getApplication()).getAppContainer();
         viewModel = new ViewModelProvider(
                 requireActivity(),
-                ((ApplicationWithAppContainer) Objects.requireNonNull(getActivity()).getApplication()).getAppContainer().createEventViewModelFactory
+                appContainer.createEventViewModelFactory
         ).get(CreateEventViewModel.class);
+        viewModel.getEventCreated().observe(getViewLifecycleOwner(), unused -> showEventCreatedSnackBar());
         initDatePicker();
         initEndTimePicker();
         initStartTimePicker();
@@ -94,9 +105,16 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
     private void addEvent() {
         viewModel.addEvent(
-                summary.getEditText().getText().toString(),
-                description.getEditText().getText().toString(),
-                location.getEditText().getText().toString());
+                getText(summary),
+                getText(description),
+                getText(location),
+                repeating.getText().toString());
+    }
+
+    private String getText(TextInputLayout input) {
+        return Optional.ofNullable(input.getEditText())
+                .map(t -> t.getText().toString())
+                .orElse("");
     }
 
     private void initDatePicker() {
@@ -129,4 +147,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                 true);
     }
 
+    private void showEventCreatedSnackBar() {
+        snackbar.show();
+    }
 }

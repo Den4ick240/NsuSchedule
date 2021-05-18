@@ -26,4 +26,22 @@
 
 
 
+    <string-array name="repeating_enum_values">
+        <item>ONCE</item>
+        <item>DAY</item>
+        <item>MONTH</item>
+        <item>WEEK</item>
+        <item>TWO_WEEK</item>
+        <item>YEAR</item>
+    </string-array>
+    <string name="repeating_enum_default_value">Не повторяется</string>
+    <string name="snackbar_event_created">Событие создано!</string>
+    <string-array name="repeating_enum_translations">
+        <item>@string/repeating_enum_default_value</item>
+        <item>Повторяется каждый день</item>
+        <item>Повторяется каждый месяц</item>
+        <item>Повторяется каждую неделю</item>
+        <item>Повторяется каждые две недели</item>
+        <item>Повторяется каждый год</item>
+    </string-array>
 </resources>

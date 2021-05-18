@@ -17,7 +17,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import ru.nsu.ccfit.nsuschedule.R;
 
 public class WeekScheduleFragment extends Fragment {
-    private static final int OFFSCREEN_PAGE_LIMIT = 10;
+    private static final int OFFSCREEN_PAGE_LIMIT = 1;
     private static final int WEEK_TABS_OFFSCREEN_PAGE_LIMIT = 10;
 
     public static WeekScheduleFragment newInstance() {
