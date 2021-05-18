@@ -38,7 +38,7 @@ public class JsonRepository implements Repository {
         EventList eventList = readEventList();
         return eventList.getEventList().stream()
                 .filter(event ->
-                        event.getDate().getStartDate().after(startDate) && event.getDate().getStartDate().before(endDate))
+                       event.getDate().occursBetweenDates(startDate, endDate))
                 .collect(Collectors.toList());
     }
 

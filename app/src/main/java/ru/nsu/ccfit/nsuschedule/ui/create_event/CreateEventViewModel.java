@@ -36,6 +36,8 @@ public class CreateEventViewModel extends ViewModel {
         startTime = Calendar.getInstance();
         endTime = Calendar.getInstance();
         updateSelectedDateString();
+        updateStartTimeString();
+        updateEndTimeString();
     }
 
     public void addEvent(String summary, String description, String location, String repeatingString) {
