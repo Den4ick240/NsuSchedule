@@ -17,8 +17,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import ru.nsu.ccfit.nsuschedule.R;
 
 public class WeekScheduleFragment extends Fragment {
-    private static final int OFFSCREEN_PAGE_LIMIT = 1;
-    private static final int WEEK_TABS_OFFSCREEN_PAGE_LIMIT = 10;
+    private static final int OFFSCREEN_PAGE_LIMIT = 4;
+    private static final int WEEK_TABS_OFFSCREEN_PAGE_LIMIT = 2;
 
     public static WeekScheduleFragment newInstance() {
         return new WeekScheduleFragment();
@@ -49,7 +49,6 @@ public class WeekScheduleFragment extends Fragment {
         });
         model.getSelectedDayPositionLiveData().observe(getViewLifecycleOwner(), viewPager::setCurrentItem);
         model.getSelectedWeekPositionLiveData().observe(getViewLifecycleOwner(), weekTabsViewPager::setCurrentItem);
-
         TextView textView = view.findViewById(R.id.current_date_text_view);
         model.getCurrentDateString().observe(getViewLifecycleOwner(), textView::setText);
 

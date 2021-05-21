@@ -17,18 +17,22 @@ public class WeekScheduleViewModel extends ViewModel {
     private final int currentDayPosition;
     private final Date firstDay;
     private final MutableLiveData<Integer> selectedDayPosition = new MutableLiveData<>();
+    private final LiveData<Integer> distinctSelectedDayPosition =
+            Transformations.distinctUntilChanged(selectedDayPosition);
     private final LiveData<Integer> selectedWeekPosition =
-            Transformations.map(selectedDayPosition, this::getWeekPosition);
+            Transformations.distinctUntilChanged(
+            Transformations.map(distinctSelectedDayPosition, this::getWeekPosition));
     private final LiveData<CharSequence> currentDateString =
-            Transformations.map(selectedDayPosition, this::formatDateForPosition);
+            Transformations.distinctUntilChanged(
+            Transformations.map(distinctSelectedDayPosition, this::formatDateForPosition));
 
     private String formatDateForPosition(int dayPosition) {
         return DateFormat.getDateInstance().format(getDateForPosition(dayPosition));
     }
 
     public WeekScheduleViewModel() {
-        int weeksBefore = 10;
-        int weeksAfter = 10;
+        int weeksBefore = 100;
+        int weeksAfter = 100;
         int daysBefore = weeksBefore * DAYS_IN_WEEK;
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -46,7 +50,7 @@ public class WeekScheduleViewModel extends ViewModel {
     }
 
     public LiveData<Integer> getSelectedDayPositionLiveData() {
-        return selectedDayPosition;
+        return distinctSelectedDayPosition;
     }
 
     public LiveData<Integer> getSelectedWeekPositionLiveData() {
