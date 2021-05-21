@@ -26,12 +26,13 @@ public class CreateEventViewModel extends ViewModel {
     private final Calendar endTime;
     private final MutableLiveData<String> startTimeStringLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> endTimeStringLiveData = new MutableLiveData<>();
-    private final DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
+    private final DateFormat timeFormat;
     private final Map<String, Repeating> repeatingStringToEnumMap;
 
-    public CreateEventViewModel(Map<String, Repeating> repeatingEnumTranslationMap, AddEvent addEvent) {
+    public CreateEventViewModel(Map<String, Repeating> repeatingEnumTranslationMap, AddEvent addEvent, DateFormat timeFormat) {
         repeatingStringToEnumMap = repeatingEnumTranslationMap;
         this.addEvent = addEvent;
+        this.timeFormat = timeFormat;
         selectedDay = Calendar.getInstance();
         startTime = Calendar.getInstance();
         endTime = Calendar.getInstance();

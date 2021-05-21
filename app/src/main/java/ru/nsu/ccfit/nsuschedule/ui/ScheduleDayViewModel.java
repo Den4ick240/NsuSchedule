@@ -3,6 +3,7 @@ package ru.nsu.ccfit.nsuschedule.ui;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -29,10 +30,12 @@ public class ScheduleDayViewModel extends ViewModel {
     private Date day;
     private final GetEventsForDay getEventsForDay;
     private final RemoveEvent removeEvent;
+    private final DateFormat timeFormat;
 
-    public ScheduleDayViewModel(GetEventsForDay getEventsForDay, RemoveEvent removeEvent) {
+    public ScheduleDayViewModel(GetEventsForDay getEventsForDay, RemoveEvent removeEvent, DateFormat timeFormat) {
         this.getEventsForDay = getEventsForDay;
         this.removeEvent = removeEvent;
+        this.timeFormat = timeFormat;
     }
 
     private List<ScheduleEvent> mapEventListToScheduleEventList(List<Event> list) {
@@ -42,16 +45,11 @@ public class ScheduleDayViewModel extends ViewModel {
         calendar.add(Calendar.DATE, 1);
         for (Event event : list) {
             for (EventOccurrence eventOccurrence : event.getDate().getOccurrencesBetweenDates(day, calendar.getTime())) {
-                outList.add(new ScheduleEvent(event, eventOccurrence));
+                outList.add(new ScheduleEvent(event, eventOccurrence, timeFormat));
             }
         }
-        Comparator<ScheduleEvent> scheduleEventComparator = (o1, o2) -> {
-            Date date1 = o1.getEvent().getDate().getStartDate();
-            Date date2 = o2.getEvent().getDate().getStartDate();
-            if (date1.equals(date2)) return 0;
-            if (date1.after(date2)) return 1;
-            return -1;
-        };
+        Comparator<ScheduleEvent> scheduleEventComparator = (o1, o2) ->
+                o1.getStartTime().compareTo(o2.getStartTime());
         Collections.sort(outList, scheduleEventComparator);
         return outList;
     }

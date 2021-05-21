@@ -37,7 +37,7 @@ public class WeekScheduleFragment extends Fragment {
 
         ViewPager2 weekTabsViewPager = view.findViewById(R.id.tab_view_pager);
         weekTabsViewPager.setOffscreenPageLimit(WEEK_TABS_OFFSCREEN_PAGE_LIMIT);
-        FragmentStateAdapter tabsAdapter = new WeekTabsPagerAdapter(getChildFragmentManager(), getLifecycle(), model);
+        FragmentStateAdapter tabsAdapter = new WeekTabsPagerAdapter(getChildFragmentManager(), getLifecycle(), model, weekTabsViewPager);
         weekTabsViewPager.setAdapter(tabsAdapter);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {

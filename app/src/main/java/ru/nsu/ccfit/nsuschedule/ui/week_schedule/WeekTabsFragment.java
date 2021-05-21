@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
@@ -28,6 +29,17 @@ public class WeekTabsFragment extends Fragment {
             R.string.fridayTab,
             R.string.saturdayTab
     };
+
+    private int selectedTabColor;
+    private int unselectedTabColor;
+
+    public void setSelectionVisible(boolean b) {
+        tabs.setTabTextColors(
+                unselectedTabColor,
+                (b ? selectedTabColor : unselectedTabColor)
+        );
+    }
+
     interface OnPositionSelectedListener {
         void selected(int position);
     }
@@ -69,6 +81,9 @@ public class WeekTabsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        selectedTabColor = ContextCompat.getColor(requireContext(), R.color.selected_tab_text_color);
+        unselectedTabColor = ContextCompat.getColor(requireContext(), R.color.unselected_tab_text_color);
+
         WeekTabNamesProvider model = new WeekTabNamesProvider(Arrays.stream(DAYS_OF_WEEK_TITLES).mapToObj(i -> getResources().getString(i)).collect(Collectors.toList()));
         tabs = view.findViewById(R.id.week_day_tabs);
 
@@ -88,8 +103,9 @@ public class WeekTabsFragment extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                //unused
+                onPositionSelectedListener.selected(tab.getPosition());
             }
+
         });
     }
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 public class WeekScheduleViewModel extends ViewModel {
     static final int DAYS_IN_WEEK = 7;
@@ -35,7 +36,7 @@ public class WeekScheduleViewModel extends ViewModel {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         int currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        calendar.add(Calendar.DATE, 2-currentDayOfWeek);
+        calendar.add(Calendar.DATE, 2 - currentDayOfWeek);
         calendar.add(Calendar.DATE, -daysBefore);
         currentDayPosition = daysBefore + currentDayOfWeek - 2;
         firstDay = calendar.getTime();
@@ -53,7 +54,8 @@ public class WeekScheduleViewModel extends ViewModel {
     }
 
     public void onPositionSelected(int position) {
-        selectedDayPosition.setValue(position);
+        if (!Integer.valueOf(position).equals(selectedDayPosition.getValue()))
+            selectedDayPosition.setValue(position);
     }
 
     public int getWeekPosition(int globalPosition) {
@@ -101,6 +103,6 @@ public class WeekScheduleViewModel extends ViewModel {
     }
 
     public int getCurrentPosition() {
-        return selectedDayPosition.getValue();
+        return Optional.ofNullable(selectedDayPosition.getValue()).orElse(currentDayPosition);
     }
 }

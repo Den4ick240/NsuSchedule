@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.nsuschedule;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +46,7 @@ public class ApplicationWithAppContainer extends Application {
         return appContainer;
     }
 
+    @SuppressWarnings({"squid:S3740", "unchecked", "rawtypes"})
     private ViewModelProvider.Factory createFactory(Function<Class, ViewModel> factory) {
         return new ViewModelProvider.Factory() {
             @NonNull
@@ -55,13 +59,14 @@ public class ApplicationWithAppContainer extends Application {
     }
 
     private AppContainer createAppContainer() throws IOException {
+        @SuppressLint("SimpleDateFormat") DateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String nsuLinkForGroup = getResources().getString(R.string.nsu_link_for_group);
         String filePath = getFilesDir().getPath() + "/downloadedFile.ics";
         Repository repository = new JsonRepository(this);
         ViewModelProvider.Factory scheduleDayViewModelFactory = createFactory(unused ->
-                new ScheduleDayViewModel(new GetEventsForDay(repository), new RemoveEvent(repository)));
+                new ScheduleDayViewModel(new GetEventsForDay(repository), new RemoveEvent(repository), timeFormat));
         ViewModelProvider.Factory createEventViewModelFactory = createFactory(unused ->
-                new CreateEventViewModel(getRepeatingEnumTranslationMap(), new AddEvent(repository)));
+                new CreateEventViewModel(getRepeatingEnumTranslationMap(), new AddEvent(repository), timeFormat));
         ViewModelProvider.Factory importScheduleViewModelFactory = createFactory(unused ->
                 new ImportScheduleViewModel(new AddScheduleFromUrl(filePath, repository), nsuLinkForGroup));
         return new AppContainer(scheduleDayViewModelFactory, createEventViewModelFactory, importScheduleViewModelFactory);

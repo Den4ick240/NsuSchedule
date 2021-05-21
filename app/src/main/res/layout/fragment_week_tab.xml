@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.tabs.TabLayout
-        app:tabSelectedTextColor="#ffcdd2"
+        app:tabSelectedTextColor="@color/selected_tab_text_color"
+        app:tabTextColor="@color/unselected_tab_text_color"
         android:id="@+id/week_day_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

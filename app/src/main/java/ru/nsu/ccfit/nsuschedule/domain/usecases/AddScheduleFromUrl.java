@@ -24,8 +24,8 @@ public class AddScheduleFromUrl {
     public void add(URL url) {
         LoadFileFromServerUseCase loadFileFromServerUseCase = new LoadFileFromServerUseCase();
         try {
-            loadFileFromServerUseCase.loadByUrl(url, filePath);
-            List<Event> eventList = new NsuIcsParser().parse(new File(filePath));
+            File file = loadFileFromServerUseCase.loadByUrl(url, filePath);
+            List<Event> eventList = new NsuIcsParser().parse(file);
             repository.addEvents(eventList);
         } catch (IOException | ParserException | RepositoryException e) {
             e.printStackTrace();
