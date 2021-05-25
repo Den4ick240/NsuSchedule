@@ -44,6 +44,11 @@ public abstract class AbstractRepository implements Repository {
         });
     }
 
+    @Override
+    public Iterable<Event> getEvents() throws RepositoryException {
+        return readEventList().getEventList();
+    }
+
     private void changeEventList(UnaryOperator<EventList> function) throws RepositoryException {
         writeEventList(function.apply(readEventList()));
     }

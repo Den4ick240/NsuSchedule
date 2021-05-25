@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.jetbrains.annotations.NotNull;
 
+import ru.nsu.ccfit.nsuschedule.ApplicationWithAppContainer;
 import ru.nsu.ccfit.nsuschedule.R;
 import ru.nsu.ccfit.nsuschedule.ui.week_schedule.WeekScheduleFragment;
 import ru.nsu.ccfit.nsuschedule.ui.week_schedule.WeekScheduleViewModel;
@@ -22,7 +23,9 @@ public class DownloadedScheduleFragment extends WeekScheduleFragment {
 
     @Override
     protected WeekScheduleViewModel getViewModel() {
-        return new ViewModelProvider(this).get(DownloadedScheduleViewModel.class);
+        return new ViewModelProvider(this,
+                ((ApplicationWithAppContainer)requireActivity().getApplication()).getAppContainer().getDownloadedScheduleViewModelFactory()
+                ).get(DownloadedScheduleViewModel.class);
     }
 
     @Override

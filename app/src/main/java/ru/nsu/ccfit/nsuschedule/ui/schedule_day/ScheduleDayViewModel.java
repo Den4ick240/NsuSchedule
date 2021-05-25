@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -22,6 +23,7 @@ import ru.nsu.ccfit.nsuschedule.R;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.entities.EventOccurrence;
 import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
+import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEventFromDownloadedSchedule;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.RemoveEvent;
 import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
@@ -31,12 +33,14 @@ public class ScheduleDayViewModel extends ViewModel {
             new MutableLiveData<>();
     private Date day;
     private final GetEventsForDay getEventsForDay;
+    private final AddEventFromDownloadedSchedule addEventFromDownloadedSchedule;
     private final RemoveEvent removeEvent;
     private final DateFormat timeFormat;
     public final int menuId;
 
-    public ScheduleDayViewModel(GetEventsForDay getEventsForDay, RemoveEvent removeEvent, DateFormat timeFormat, int menuId) {
+    public ScheduleDayViewModel(GetEventsForDay getEventsForDay, AddEventFromDownloadedSchedule addEventFromDownloadedSchedule, RemoveEvent removeEvent, DateFormat timeFormat, int menuId) {
         this.getEventsForDay = getEventsForDay;
+        this.addEventFromDownloadedSchedule = addEventFromDownloadedSchedule;
         this.removeEvent = removeEvent;
         this.timeFormat = timeFormat;
         this.menuId = menuId;
@@ -115,6 +119,18 @@ public class ScheduleDayViewModel extends ViewModel {
     public void handleContextItemSelected(int itemId, int position) {
         if (itemId == R.id.delete_event_item) {
             deleteEvent(position);
+        }
+        if (itemId == R.id.add_event_to_schedule_item) {
+            new Thread(() ->
+            {
+                try {
+                    addEventFromDownloadedSchedule.add(Objects.requireNonNull(scheduleEventList.getValue()).get(position).getEvent());
+                    loadSchedule();
+                } catch (RepositoryException e) {
+                    e.printStackTrace();
+                }
+            }
+            ).start();
         }
 
     }

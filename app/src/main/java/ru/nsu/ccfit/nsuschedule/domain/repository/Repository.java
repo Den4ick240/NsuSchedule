@@ -10,4 +10,6 @@ public interface Repository {
     void addEvent(Event event) throws RepositoryException;
     void removeEvent(Event event) throws RepositoryException;
     void addEvents(Iterable<Event> events) throws RepositoryException;
+
+    Iterable<Event> getEvents() throws RepositoryException;
 }
