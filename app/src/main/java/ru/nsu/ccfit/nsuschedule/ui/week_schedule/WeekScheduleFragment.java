@@ -24,12 +24,16 @@ public class WeekScheduleFragment extends Fragment {
         return new WeekScheduleFragment();
     }
 
+    protected WeekScheduleViewModel getViewModel() {
+        return new ViewModelProvider(this).get(WeekScheduleViewModel.class);
+    }
+
     @SuppressLint("WrongConstant")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        WeekScheduleViewModel model = new ViewModelProvider(this).get(WeekScheduleViewModel.class);
+        WeekScheduleViewModel model = getViewModel();
         ViewPager2 viewPager = view.findViewById(R.id.days_view_pager);
         viewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
         FragmentStateAdapter adapter = new WeekSchedulePagerAdapter(getChildFragmentManager(), getLifecycle(), model);

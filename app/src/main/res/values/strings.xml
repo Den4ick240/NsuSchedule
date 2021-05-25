@@ -44,6 +44,8 @@
     <string name="download_from_nsu_button_label">Скачать с сайта НГУ</string>
     <string name="download_from_url_hint">Ссылка</string>
     <string name="nsu_link_for_group">https://table.nsu.ru/ics/group/</string>
+    <string name="add_all_button_label">Добавить события в свое расписание</string>
+    <string name="add_event_to_schedule_item_label">Добавить в свое расписание</string>
     <string-array name="repeating_enum_translations">
         <item>@string/repeating_enum_default_value</item>
         <item>Повторяется каждый день</item>

@@ -7,6 +7,7 @@
     tools:context="ui.week_schedule.WeekScheduleFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -14,8 +15,7 @@
             android:id="@+id/current_date_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="17dp"
+            android:layout_marginStart="17dp"
             android:text="19 мая 2021 г."
             android:textColor="@color/black"
             android:textSize="17sp"

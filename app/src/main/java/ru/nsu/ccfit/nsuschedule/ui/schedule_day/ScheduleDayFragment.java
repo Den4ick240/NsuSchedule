@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.nsuschedule.ui;
+package ru.nsu.ccfit.nsuschedule.ui.schedule_day;
 
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -24,35 +24,41 @@ import java.util.List;
 
 import ru.nsu.ccfit.nsuschedule.ApplicationWithAppContainer;
 import ru.nsu.ccfit.nsuschedule.R;
+import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
 
 
 public class ScheduleDayFragment extends Fragment {
 
     private static final String DAY_PARAM = "day";
+    private static final String FLOW_NAME_PARAM = "flow_name";
     private Date day;
     private ScheduleDayViewModel model;
+    private String flowName;
     private boolean visible;
 
-    public static ScheduleDayFragment newInstance(Date day) {
+    public static ScheduleDayFragment newInstance(Date day, String flowName) {
         ScheduleDayFragment fragment = new ScheduleDayFragment();
         Bundle args = new Bundle();
         args.putSerializable(DAY_PARAM, day);
+        args.putString(FLOW_NAME_PARAM, flowName);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreateContextMenu(@NonNull @NotNull ContextMenu menu, @NonNull @NotNull View v, @Nullable @org.jetbrains.annotations.Nullable ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(@NonNull @NotNull ContextMenu menu, @NonNull @NotNull View v,
+                                    @Nullable @org.jetbrains.annotations.Nullable ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        requireActivity().getMenuInflater().inflate(R.menu.event_context_menu, menu);
+        requireActivity().getMenuInflater().inflate(model.menuId, menu);
     }
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         if (!visible) return false;
-        if (item.getItemId() == R.id.delete_event_item) {
-            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            model.deleteEvent(menuInfo.position);
+
+        ContextMenu.ContextMenuInfo menuInfo = item.getMenuInfo();
+        if (menuInfo instanceof AdapterView.AdapterContextMenuInfo) {
+            model.handleContextItemSelected(item.getItemId(), ((AdapterView.AdapterContextMenuInfo) menuInfo).position);
         }
         return true;
     }
@@ -69,9 +75,9 @@ public class ScheduleDayFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             day = (Date) getArguments().getSerializable(DAY_PARAM);
+            flowName = getArguments().getString(FLOW_NAME_PARAM);
         }
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -79,7 +85,7 @@ public class ScheduleDayFragment extends Fragment {
         ListView listView = view.findViewById(R.id.list_view);
         listView.setOnCreateContextMenuListener(this);
         ViewModelProvider.Factory factory = ((ApplicationWithAppContainer) requireActivity().getApplication()).getAppContainer()
-                .scheduleDayViewModelFactory;
+                .getScheduleDayViewModelFactory(flowName);
         model = new ViewModelProvider(this, factory).get(ScheduleDayViewModel.class);
         DaysAdapter adapter = new DaysAdapter();
         model.setDay(day);

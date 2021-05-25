@@ -10,6 +10,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
+import ru.nsu.ccfit.nsuschedule.AppContainer;
+
 public class WeekScheduleViewModel extends ViewModel {
     static final int DAYS_IN_WEEK = 7;
     private final int numberOfWeeks;
@@ -108,5 +110,9 @@ public class WeekScheduleViewModel extends ViewModel {
 
     public int getCurrentPosition() {
         return Optional.ofNullable(selectedDayPosition.getValue()).orElse(currentDayPosition);
+    }
+
+    public String getFlowName() {
+        return AppContainer.LOCAL_SCHEDULE_FLOW;
     }
 }

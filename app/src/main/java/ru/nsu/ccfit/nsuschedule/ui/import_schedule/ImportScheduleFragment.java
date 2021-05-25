@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -27,10 +29,11 @@ public class ImportScheduleFragment extends Fragment implements View.OnClickList
         return new ImportScheduleFragment();
     }
 
+    View view;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_import_schedule, container, false);
+        view = inflater.inflate(R.layout.fragment_import_schedule, container, false);
         view.findViewById(R.id.download_url_button).setOnClickListener(this);
         view.findViewById(R.id.download_nsu_button).setOnClickListener(this);
         urlTextEdit = view.findViewById(R.id.download_url_edit_text);
@@ -45,6 +48,14 @@ public class ImportScheduleFragment extends Fragment implements View.OnClickList
                 new ViewModelProvider(this,
                         ((ApplicationWithAppContainer) requireActivity().getApplication()).getAppContainer().importScheduleViewModelFactory
                 ).get(ImportScheduleViewModel.class);
+        viewModel.getScheduleReady().observe(getViewLifecycleOwner(), this::onScheduleReady);
+    }
+
+    private void onScheduleReady(Void unused) {
+//        ((NavHostFragment)getParentFragmentManager().findFragmentById(R.id.nav_host_fragment))//cannot be cast to navhostfragment
+//                .getNavController()
+        Navigation.findNavController(view)
+                .navigate(R.id.action_importScheduleFragment_to_downloadedScheduleFragment);
     }
 
     @Override

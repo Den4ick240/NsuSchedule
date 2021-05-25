@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import ru.nsu.ccfit.nsuschedule.ui.ScheduleDayFragment;
+import ru.nsu.ccfit.nsuschedule.ui.schedule_day.ScheduleDayFragment;
 
 public class WeekSchedulePagerAdapter extends FragmentStateAdapter {
     private final WeekScheduleViewModel model;
@@ -19,7 +19,7 @@ public class WeekSchedulePagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return ScheduleDayFragment.newInstance(model.getDateForPosition(position));
+        return ScheduleDayFragment.newInstance(model.getDateForPosition(position), model.getFlowName());
     }
 
     @Override

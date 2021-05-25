@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.nsuschedule.ui;
+package ru.nsu.ccfit.nsuschedule.ui.schedule_day;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -18,11 +18,13 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import ru.nsu.ccfit.nsuschedule.R;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.entities.EventOccurrence;
 import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.RemoveEvent;
+import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
 
 public class ScheduleDayViewModel extends ViewModel {
     private final MutableLiveData<List<ScheduleEvent>> scheduleEventList =
@@ -31,11 +33,13 @@ public class ScheduleDayViewModel extends ViewModel {
     private final GetEventsForDay getEventsForDay;
     private final RemoveEvent removeEvent;
     private final DateFormat timeFormat;
+    public final int menuId;
 
-    public ScheduleDayViewModel(GetEventsForDay getEventsForDay, RemoveEvent removeEvent, DateFormat timeFormat) {
+    public ScheduleDayViewModel(GetEventsForDay getEventsForDay, RemoveEvent removeEvent, DateFormat timeFormat, int menuId) {
         this.getEventsForDay = getEventsForDay;
         this.removeEvent = removeEvent;
         this.timeFormat = timeFormat;
+        this.menuId = menuId;
     }
 
     private List<ScheduleEvent> mapEventListToScheduleEventList(List<Event> list) {
@@ -106,5 +110,12 @@ public class ScheduleDayViewModel extends ViewModel {
             }
             loadSchedule();
         }).start();
+    }
+
+    public void handleContextItemSelected(int itemId, int position) {
+        if (itemId == R.id.delete_event_item) {
+            deleteEvent(position);
+        }
+
     }
 }
