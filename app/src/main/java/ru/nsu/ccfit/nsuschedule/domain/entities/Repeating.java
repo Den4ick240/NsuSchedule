@@ -1,8 +1,9 @@
 package ru.nsu.ccfit.nsuschedule.domain.entities;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public enum Repeating {
+public enum Repeating implements Serializable {
     ONCE(Calendar.DATE, 0),
     DAY(Calendar.DATE, 1),
     MONTH(Calendar.MONTH, 1),

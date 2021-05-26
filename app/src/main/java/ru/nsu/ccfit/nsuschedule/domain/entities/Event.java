@@ -2,7 +2,9 @@ package ru.nsu.ccfit.nsuschedule.domain.entities;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Event {
+import java.io.Serializable;
+
+public class Event implements Serializable {
 
     public Event(EventInfo eventInfo, EventDate eventDate) {
         info = eventInfo;

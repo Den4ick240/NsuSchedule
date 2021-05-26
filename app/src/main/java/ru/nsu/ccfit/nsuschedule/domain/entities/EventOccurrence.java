@@ -4,11 +4,12 @@ import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
-public class EventOccurrence {
+public class EventOccurrence implements Serializable {
     private final Calendar startDate = Calendar.getInstance();
     private final Calendar endDate = Calendar.getInstance();
 

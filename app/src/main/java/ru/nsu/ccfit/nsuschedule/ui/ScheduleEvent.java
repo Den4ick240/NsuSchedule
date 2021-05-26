@@ -1,13 +1,14 @@
 package ru.nsu.ccfit.nsuschedule.ui;
 
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.entities.EventOccurrence;
 
-public class ScheduleEvent {
+public class ScheduleEvent implements Serializable {
     private final Event e;
     private final EventOccurrence eventOccurrence;
     private final DateFormat format;
@@ -18,19 +19,19 @@ public class ScheduleEvent {
         this.format = timeFormat;
     }
 
-    public CharSequence getSummary() {
+    public String getSummary() {
         return e.getInfo().getSummary();
     }
 
-    public CharSequence getDescription() {
+    public String getDescription() {
         return e.getInfo().getDescription();
     }
 
-    public CharSequence getLocation() {
+    public String getLocation() {
         return e.getInfo().getLocation();
     }
 
-    public CharSequence getTime() {
+    public String getTime() {
         return format.format(eventOccurrence.getStartDate()) + "-" + format.format(eventOccurrence.getEndDate());
     }
 
