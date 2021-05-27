@@ -17,9 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import ru.nsu.ccfit.nsuschedule.data.SharedPreferencesSettingsRepository;
 import ru.nsu.ccfit.nsuschedule.data.json_repository.JsonRepository;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Repeating;
 import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
+import ru.nsu.ccfit.nsuschedule.domain.repository.SettingsRepository;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddAllEvents;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEvent;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEventFromDownloadedSchedule;
@@ -36,6 +38,7 @@ public class AppContainer {
     private ViewModelProvider.Factory downloadedScheduleDayViewModelFactory;
     public final ViewModelProvider.Factory createEventViewModelFactory;
     public final ViewModelProvider.Factory importScheduleViewModelFactory;
+    public final SettingsRepository settingsRepository;
 
     public ViewModelProvider.Factory getDownloadedScheduleViewModelFactory() {
         return downloadedScheduleViewModelFactory;
@@ -72,6 +75,7 @@ public class AppContainer {
         this.context = context;
         String nsuLinkForGroup = context.getResources().getString(R.string.nsu_link_for_group);
         String filePath = context.getFilesDir().getPath() + "/downloadedFile.ics";
+        settingsRepository = new SharedPreferencesSettingsRepository(context);
         repository = new JsonRepository(context);
         scheduleDayViewModelFactory = createFactory(unused ->
                 new ScheduleDayViewModel(new GetEventsForDay(repository), null,
