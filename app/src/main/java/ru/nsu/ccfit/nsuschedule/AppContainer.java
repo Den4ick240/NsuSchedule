@@ -39,16 +39,9 @@ import ru.nsu.ccfit.nsuschedule.ui.schedule_day.ScheduleDayViewModel;
 
 public class AppContainer {
     private final ViewModelProvider.Factory scheduleDayViewModelFactory;
-    private ViewModelProvider.Factory downloadedScheduleDayViewModelFactory;
     public final ViewModelProvider.Factory createEventViewModelFactory;
     public final ViewModelProvider.Factory importScheduleViewModelFactory;
     public final SettingsRepository settingsRepository;
-
-    public ViewModelProvider.Factory getDownloadedScheduleViewModelFactory() {
-        return downloadedScheduleViewModelFactory;
-    }
-
-    private ViewModelProvider.Factory downloadedScheduleViewModelFactory;
     public final ScheduleNotificationManager scheduleNotificationManager;
     public final SetupNextNotification setupNextNotification;
     public static final String LOCAL_SCHEDULE_FLOW = "LOCAL_SCHEDULE_FLOW";
@@ -94,7 +87,7 @@ public class AppContainer {
                 baseRepository, timeFormat);
         repository = new RepositoryWithNotifications(baseRepository, setupNextNotification);
         settingsRepository = new SharedPreferencesSettingsRepository(context);
-        repository = new JsonRepository(context);
+//        repository = new JsonRepository(context);
         scheduleDayViewModelFactory = createFactory(unused ->
                 new ScheduleDayViewModel(new GetEventsForDay(repository), null,
                         new RemoveEvent(repository), timeFormat, R.menu.event_context_menu));

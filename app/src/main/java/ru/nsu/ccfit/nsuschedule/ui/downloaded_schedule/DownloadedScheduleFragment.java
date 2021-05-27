@@ -24,8 +24,9 @@ public class DownloadedScheduleFragment extends WeekScheduleFragment {
     @Override
     protected WeekScheduleViewModel getViewModel() {
         return new ViewModelProvider(this,
-                ((ApplicationWithAppContainer)requireActivity().getApplication()).getAppContainer().getDownloadedScheduleViewModelFactory()
-                ).get(DownloadedScheduleViewModel.class);
+                ((ApplicationWithAppContainer) requireActivity().getApplication())
+                        .getAppContainer().getDownloadedScheduleViewModelFactory()
+        ).get(DownloadedScheduleViewModel.class);
     }
 
     @Override
