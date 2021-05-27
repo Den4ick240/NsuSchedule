@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="end"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/notifications_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notifications_switch_label" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/alarms_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/alarms_switch_label" />
+
+</LinearLayout>
