@@ -1,23 +1,21 @@
 package ru.nsu.ccfit.nsuschedule.ui.settings;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import ru.nsu.ccfit.nsuschedule.ApplicationWithAppContainer;
 import ru.nsu.ccfit.nsuschedule.R;
+import ru.nsu.ccfit.nsuschedule.domain.repository.SettingsRepository;
 
 public class SettingsFragment extends Fragment {
-    public static final String NOTIFICATIONS_KEY = "NOTIFICATIONS_KEY";
-    public static final String ALARMS_KEY = "ALARMS_KEY";
+    private SettingsRepository settingsRepository;
 
 
     public static SettingsFragment newInstance() {
@@ -32,21 +30,16 @@ public class SettingsFragment extends Fragment {
                 .setOnCheckedChangeListener(this::onNotificationsCheckedChanged);
         ((SwitchMaterial) view.findViewById(R.id.alarms_switch))
                 .setOnCheckedChangeListener(this::onAlarmsCheckedChanged);
+        settingsRepository = ((ApplicationWithAppContainer)requireActivity().getApplication())
+                .getAppContainer().settingsRepository;
         return view;
     }
 
     private void onNotificationsCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        setSharedBoolean(NOTIFICATIONS_KEY, isChecked);
+        settingsRepository.setNotificationsEnabled(isChecked);
     }
 
     private void onAlarmsCheckedChanged(CompoundButton compoundButton, boolean b) {
-        setSharedBoolean(ALARMS_KEY, b);
-    }
-
-    private void setSharedBoolean(String key, boolean value) {
-        SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = sharedPreferences.edit();
-        edit.putBoolean(key, value);
-        edit.apply();
+        settingsRepository.setAlarmsEnabled(b);
     }
 }

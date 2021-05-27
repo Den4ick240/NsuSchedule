@@ -17,11 +17,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import ru.nsu.ccfit.nsuschedule.data.SharedPreferencesSettingsRepository;
 import ru.nsu.ccfit.nsuschedule.data.json_repository.JsonRepository;
 import ru.nsu.ccfit.nsuschedule.domain.ScheduleNotificationManager;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Repeating;
 import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
 import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryWithNotifications;
+import ru.nsu.ccfit.nsuschedule.domain.repository.SettingsRepository;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddAllEvents;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEvent;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEventFromDownloadedSchedule;
@@ -37,8 +39,16 @@ import ru.nsu.ccfit.nsuschedule.ui.schedule_day.ScheduleDayViewModel;
 
 public class AppContainer {
     private final ViewModelProvider.Factory scheduleDayViewModelFactory;
+    private ViewModelProvider.Factory downloadedScheduleDayViewModelFactory;
     public final ViewModelProvider.Factory createEventViewModelFactory;
     public final ViewModelProvider.Factory importScheduleViewModelFactory;
+    public final SettingsRepository settingsRepository;
+
+    public ViewModelProvider.Factory getDownloadedScheduleViewModelFactory() {
+        return downloadedScheduleViewModelFactory;
+    }
+
+    private ViewModelProvider.Factory downloadedScheduleViewModelFactory;
     public final ScheduleNotificationManager scheduleNotificationManager;
     public final SetupNextNotification setupNextNotification;
     public static final String LOCAL_SCHEDULE_FLOW = "LOCAL_SCHEDULE_FLOW";
@@ -48,6 +58,7 @@ public class AppContainer {
     private ViewModelProvider.Factory downloadedScheduleDayViewModelFactory;
     @SuppressLint("SimpleDateFormat")
     private final DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
     private final Context context;
     private final Repository repository;
 
@@ -82,6 +93,8 @@ public class AppContainer {
         setupNextNotification = new SetupNextNotification(15, scheduleNotificationManager,
                 baseRepository, timeFormat);
         repository = new RepositoryWithNotifications(baseRepository, setupNextNotification);
+        settingsRepository = new SharedPreferencesSettingsRepository(context);
+        repository = new JsonRepository(context);
         scheduleDayViewModelFactory = createFactory(unused ->
                 new ScheduleDayViewModel(new GetEventsForDay(repository), null,
                         new RemoveEvent(repository), timeFormat, R.menu.event_context_menu));
