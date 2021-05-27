@@ -26,7 +26,9 @@ public class SetupNextNotification {
     }
 
     public void invoke() throws RepositoryException {
-        repository.getEventsInRange(new Date(), new Date(Long.MAX_VALUE))
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.MINUTE, notificationMinutesBeforeEvent);
+        repository.getEventsInRange(now.getTime(), new Date(Long.MAX_VALUE))
                 .stream().map(this::mapToScheduleEvent)
                 .min(this::findMinComparator)
                 .ifPresent(this::setNextNotification);
@@ -38,6 +40,7 @@ public class SetupNextNotification {
 
     private void setNextNotification(ScheduleEvent event) {
         Calendar c = Calendar.getInstance();
+        c.setTime(event.getStartTime());
         c.add(Calendar.MINUTE, -notificationMinutesBeforeEvent);
         notificationManager.setNextNotification(c, event);
     }

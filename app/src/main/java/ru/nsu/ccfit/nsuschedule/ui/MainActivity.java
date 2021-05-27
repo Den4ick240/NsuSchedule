@@ -14,7 +14,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
+import ru.nsu.ccfit.nsuschedule.ApplicationWithAppContainer;
 import ru.nsu.ccfit.nsuschedule.R;
+import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 
 public class MainActivity extends AppCompatActivity {
     AppBarConfiguration appBarConfiguration;
@@ -36,7 +38,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
         NavigationUI.setupWithNavController((NavigationView) findViewById(R.id.nvView), navController);
-
+        new Thread(() ->
+        {
+            try {
+                ((ApplicationWithAppContainer)getApplication()).getAppContainer().setupNextNotification.invoke();
+            } catch (RepositoryException e) {
+                e.printStackTrace();
+            }
+        }
+        ).start();
     }
 
     @Override

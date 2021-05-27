@@ -13,8 +13,11 @@ import java.util.Arrays;
 
 import ru.nsu.ccfit.nsuschedule.AppContainer;
 import ru.nsu.ccfit.nsuschedule.ApplicationWithAppContainer;
+import ru.nsu.ccfit.nsuschedule.R;
 import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
-import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
+
+import static ru.nsu.ccfit.nsuschedule.notifications.AndroidScheduleNotificationManager.CONTENT_KEY;
+import static ru.nsu.ccfit.nsuschedule.notifications.AndroidScheduleNotificationManager.TITLE_KEY;
 
 public class NotificationBroadcastReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "ru.nsu.ccfit.nsuschedule.CHANNEL_ID_123143";
@@ -27,7 +30,8 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         appContainer = ((ApplicationWithAppContainer) context.getApplicationContext()).getAppContainer();
-        ScheduleEvent event = (ScheduleEvent) intent.getExtras().getSerializable(AndroidScheduleNotificationManager.EVENT_SERIALIZABLE_KEY);
+        String title = intent.getStringExtra(TITLE_KEY);
+        String text = intent.getStringExtra(CONTENT_KEY);
         Notification.Builder builder = new Notification.Builder(context);
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -36,10 +40,12 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(
                     new NotificationChannel(CHANNEL_ID,
                             CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH));
+            builder.setChannelId(CHANNEL_ID);
         }
         Notification notification = builder
-                .setContentTitle(formatTitle(event))
-                .setContentText(formatText(event))
+                .setContentTitle(title)
+                .setContentText(text)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .build();
         notificationManager.notify(NOTIFICATION_ID, notification);
         pendingResult = goAsync();
@@ -53,16 +59,5 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
             Log.e(getClass().getName(), Arrays.toString(e.getStackTrace()));
         }
         pendingResult.finish();
-    }
-
-    private CharSequence formatText(ScheduleEvent event) {
-        return String.format("%s%n%s, %s",
-                event.getDescription(),
-                event.getTime(), event.getLocation()
-        );
-    }
-
-    private CharSequence formatTitle(ScheduleEvent event) {
-        return event.getSummary();
     }
 }
