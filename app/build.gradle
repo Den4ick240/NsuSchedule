@@ -54,6 +54,7 @@ dependencies {
     implementation 'androidx.core:core:1.6.0-alpha03'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'androidx.preference:preference:1.1.1'
     compile 'org.mnode.ical4j:ical4j:1.0.5'
     compile 'backport-util-concurrent:backport-util-concurrent:3.1'
     compile 'commons-codec:commons-codec:1.13'

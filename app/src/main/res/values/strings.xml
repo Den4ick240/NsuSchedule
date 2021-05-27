@@ -25,7 +25,6 @@
     <string name="event_context_menu_delete_event_title">Удалить событие</string>
 
 
-
     <string-array name="repeating_enum_values">
         <item>ONCE</item>
         <item>DAY</item>
@@ -54,4 +53,24 @@
         <item>Повторяется каждые две недели</item>
         <item>Повторяется каждый год</item>
     </string-array>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notifications_switch_label">Показывать уведомления</string>
+    <string name="alarms_switch_label">Включить будильники перед событиями</string>
+    <string name="settings_fragment_label">Настройки</string>
+    <string name="downloaded_schedule_fragment_label">Просмотр расписания</string>
 </resources>
