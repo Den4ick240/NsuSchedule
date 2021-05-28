@@ -33,7 +33,9 @@ public class SetupNextNotification {
         Calendar now = Calendar.getInstance();
         now.add(Calendar.MINUTE, notificationMinutesBeforeEvent);
         repository.getEventsInRange(now.getTime(), new Date(Long.MAX_VALUE))
-                .stream().map(this::mapToScheduleEvent)
+                .stream()
+                .filter(Event::isNotificationsOn)
+                .map(this::mapToScheduleEvent)
                 .min(this::findMinComparator)
                 .ifPresent(this::setNextNotification);
     }
@@ -46,7 +48,8 @@ public class SetupNextNotification {
         Calendar c = Calendar.getInstance();
         c.setTime(event.getStartTime());
         c.add(Calendar.MINUTE, -notificationMinutesBeforeEvent);
-        notificationManager.setNextNotification(c, settingsRepository.alarmsEnabled(), event);
+        boolean alarmOn = settingsRepository.alarmsEnabled() && event.getEvent().isAlarmsOn();
+        notificationManager.setNextNotification(c, alarmOn, event);
     }
 
     private ScheduleEvent mapToScheduleEvent(Event e) {
