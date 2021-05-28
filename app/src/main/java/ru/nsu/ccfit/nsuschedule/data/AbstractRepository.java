@@ -29,6 +29,15 @@ public abstract class AbstractRepository implements Repository {
     }
 
     @Override
+    public void updaterEvent(Event oldEvent, Event newEvent) throws RepositoryException {
+        changeEventList(eventList -> {
+            eventList.remove(oldEvent);
+            eventList.addEvent(newEvent);
+            return eventList;
+        });
+    }
+
+    @Override
     public void addEvent(Event event) throws RepositoryException {
         changeEventList(eventList -> {
             eventList.addEvent(event);

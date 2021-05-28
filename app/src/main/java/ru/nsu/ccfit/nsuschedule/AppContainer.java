@@ -32,6 +32,7 @@ import ru.nsu.ccfit.nsuschedule.domain.usecases.AddScheduleFromUrl;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.RemoveEvent;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.SetupNextNotification;
+import ru.nsu.ccfit.nsuschedule.domain.usecases.UpdateEvent;
 import ru.nsu.ccfit.nsuschedule.notifications.AndroidScheduleNotificationManager;
 import ru.nsu.ccfit.nsuschedule.ui.create_event.CreateEventViewModel;
 import ru.nsu.ccfit.nsuschedule.ui.downloaded_schedule.DownloadedScheduleViewModel;
@@ -120,7 +121,9 @@ public class AppContainer {
 
     public void initCreateEventViewModelFactory(Event updatableEvent) {
         updateEventViewModelFactory = createFactory(unused ->
-                new CreateEventViewModel(getRepeatingEnumTranslationMap(), new AddEvent(repository), timeFormat, updatableEvent));
+                new CreateEventViewModel(getRepeatingEnumTranslationMap(),
+                        new UpdateEvent(repository, updatableEvent),
+                        timeFormat, updatableEvent));
     }
 
     public ViewModelProvider.Factory getUpdateEventViewModelFactory() {

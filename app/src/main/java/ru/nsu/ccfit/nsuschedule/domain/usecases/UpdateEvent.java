@@ -4,14 +4,16 @@ import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
 import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 
-public class AddEvent {
-    protected final Repository repository;
+public class UpdateEvent extends AddEvent {
+    private final Event oldEvent;
 
-    public AddEvent(Repository repository) {
-        this.repository = repository;
+    public UpdateEvent(Repository repository, Event oldEvent) {
+        super(repository);
+        this.oldEvent = oldEvent;
     }
 
+    @Override
     public void add(Event event) throws RepositoryException {
-        repository.addEvent(event);
+        repository.updaterEvent(oldEvent, event);
     }
 }

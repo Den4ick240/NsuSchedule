@@ -168,6 +168,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/repository/RepositoryWithNotifications.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/repository/SettingsRepository.java">
           <value>
             <set />
@@ -214,6 +219,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/usecases/SetupNextNotification.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/usecases/UpdateEvent.java">
           <value>
             <set />
           </value>

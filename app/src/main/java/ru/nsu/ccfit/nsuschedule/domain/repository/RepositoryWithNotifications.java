@@ -33,6 +33,12 @@ public class RepositoryWithNotifications implements Repository {
     }
 
     @Override
+    public void updaterEvent(Event oldEvent, Event newEvent) throws RepositoryException {
+        repository.updaterEvent(oldEvent, newEvent);
+        setupNextNotification.invoke();
+    }
+
+    @Override
     public void addEvents(Iterable<Event> events) throws RepositoryException {
         repository.addEvents(events);
         setupNextNotification.invoke();
