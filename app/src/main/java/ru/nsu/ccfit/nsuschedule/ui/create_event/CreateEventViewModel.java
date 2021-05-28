@@ -52,7 +52,8 @@ public class CreateEventViewModel extends ViewModel {
         updateEndTimeString();
     }
 
-    public void addEvent(String summary, String description, String location, String repeatingString) {
+    public void addEvent(String summary, String description, String location, String repeatingString,
+                         boolean notificationChecked, boolean alarmChecked) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(getCurrentYear(), getCurrentMonth(), getCurrentDay(), getStartHour(), getStartMinute(), 0);
         Date startDate = calendar.getTime();
@@ -64,7 +65,8 @@ public class CreateEventViewModel extends ViewModel {
                 addEvent.add(
                         new Event(
                                 new EventInfo(summary, description, location),
-                                new EventDate(startDate, endDate, repeatingStringToEnumMap.get(repeatingString))));
+                                new EventDate(startDate, endDate, repeatingStringToEnumMap.get(repeatingString)),
+                                notificationChecked, alarmChecked));
                 eventCreated.postValue(null);
             } catch (RepositoryException e) {
                 e.printStackTrace();
@@ -73,7 +75,6 @@ public class CreateEventViewModel extends ViewModel {
         };
         new Thread(task).start();
     }
-
 
     public LiveData<Void> getEventCreated() {
         return eventCreated;
@@ -171,5 +172,13 @@ public class CreateEventViewModel extends ViewModel {
                 .filter(e -> e.getValue().equals(initialEvent.getDate().getRepeating()))
                 .findFirst().map(Map.Entry::getKey)
                 .orElse("");
+    }
+
+    public boolean getNotificationsEnabled() {
+        return initialEvent.isNotificationsOn();
+    }
+
+    public boolean getAlarmsEnabled() {
+        return initialEvent.isAlarmsOn();
     }
 }

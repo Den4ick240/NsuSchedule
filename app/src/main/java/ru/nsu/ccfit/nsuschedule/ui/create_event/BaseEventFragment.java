@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Optional;
@@ -30,6 +31,8 @@ public abstract class BaseEventFragment extends Fragment implements View.OnClick
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog startTimePickerDialog;
     private TimePickerDialog endTimePickerDialog;
+    private SwitchMaterial notificationSwitch;
+    private SwitchMaterial alarmSwitch;
     private Button dateButton;
     private Button endTimeButton;
     private Button startTimeButton;
@@ -55,7 +58,8 @@ public abstract class BaseEventFragment extends Fragment implements View.OnClick
         endTimeButton = view.findViewById(R.id.end_time_button);
         startTimeButton = view.findViewById(R.id.start_time_button);
         repeating = view.findViewById(R.id.repeating_text_view);
-
+        notificationSwitch = view.findViewById(R.id.notification_switch);
+        alarmSwitch = view.findViewById(R.id.alarm_switch);
 
         startTimeButton.setOnClickListener(this);
         endTimeButton.setOnClickListener(this);
@@ -76,6 +80,8 @@ public abstract class BaseEventFragment extends Fragment implements View.OnClick
         description.getEditText().setText(viewModel.getDescription());
         location.getEditText().setText(viewModel.getLocation());
         repeating.setText(viewModel.getRepeating());
+        notificationSwitch.setChecked(viewModel.getNotificationsEnabled());
+        alarmSwitch.setChecked(viewModel.getAlarmsEnabled());
         initDatePicker();
         initEndTimePicker();
         initStartTimePicker();
@@ -107,7 +113,9 @@ public abstract class BaseEventFragment extends Fragment implements View.OnClick
                 getText(summary),
                 getText(description),
                 getText(location),
-                repeating.getText().toString());
+                repeating.getText().toString(),
+                notificationSwitch.isChecked(),
+                alarmSwitch.isChecked());
     }
 
     private String getText(TextInputLayout input) {

@@ -173,6 +173,23 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/notification_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/notifications_switch_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/alarm_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alarms_switch_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
+
         <Button
             android:id="@+id/create_event_button"
             android:layout_width="wrap_content"
