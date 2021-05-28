@@ -28,14 +28,24 @@ public class CreateEventViewModel extends ViewModel {
     private final MutableLiveData<String> endTimeStringLiveData = new MutableLiveData<>();
     private final DateFormat timeFormat;
     private final Map<String, Repeating> repeatingStringToEnumMap;
+    private final Event initialEvent;
 
     public CreateEventViewModel(Map<String, Repeating> repeatingEnumTranslationMap, AddEvent addEvent, DateFormat timeFormat) {
+        this(repeatingEnumTranslationMap, addEvent, timeFormat, new Event(new EventInfo("", "", ""),
+                new EventDate(new Date(), new Date(), Repeating.ONCE)));
+    }
+
+    public CreateEventViewModel(Map<String, Repeating> repeatingEnumTranslationMap, AddEvent addEvent, DateFormat timeFormat, Event initialEvent) {
         repeatingStringToEnumMap = repeatingEnumTranslationMap;
         this.addEvent = addEvent;
         this.timeFormat = timeFormat;
+        this.initialEvent = initialEvent;
         selectedDay = Calendar.getInstance();
         startTime = Calendar.getInstance();
         endTime = Calendar.getInstance();
+        selectedDay.setTime(initialEvent.getDate().getStartDate());
+        startTime.setTime(initialEvent.getDate().getStartDate());
+        endTime.setTime(initialEvent.getDate().getEndDate());
         updateSelectedDateString();
         updateStartTimeString();
         updateEndTimeString();
@@ -141,5 +151,17 @@ public class CreateEventViewModel extends ViewModel {
 
     private void updateEndTimeString() {
         endTimeStringLiveData.setValue(timeFormat.format(endTime.getTime()));
+    }
+
+    public String getSummary() {
+        return initialEvent.getInfo().getSummary();
+    }
+
+    public String getDescription() {
+        return initialEvent.getInfo().getDescription();
+    }
+
+    public String getLocation() {
+        return initialEvent.getInfo().getLocation();
     }
 }

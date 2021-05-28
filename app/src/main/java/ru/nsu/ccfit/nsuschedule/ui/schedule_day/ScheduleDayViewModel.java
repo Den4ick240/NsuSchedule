@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.nsuschedule.ui.schedule_day;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -19,6 +20,7 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import ru.nsu.ccfit.nsuschedule.AppContainer;
 import ru.nsu.ccfit.nsuschedule.R;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.entities.EventOccurrence;
@@ -31,19 +33,22 @@ import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
 public class ScheduleDayViewModel extends ViewModel {
     private final MutableLiveData<List<ScheduleEvent>> scheduleEventList =
             new MutableLiveData<>();
+    private final MutableLiveData<Void> navigateUpdate = new MutableLiveData<>();
     private Date day;
     private final GetEventsForDay getEventsForDay;
     private final AddEventFromDownloadedSchedule addEventFromDownloadedSchedule;
     private final RemoveEvent removeEvent;
     private final DateFormat timeFormat;
     public final int menuId;
+    private final AppContainer appContainer;
 
-    public ScheduleDayViewModel(GetEventsForDay getEventsForDay, AddEventFromDownloadedSchedule addEventFromDownloadedSchedule, RemoveEvent removeEvent, DateFormat timeFormat, int menuId) {
+    public ScheduleDayViewModel(GetEventsForDay getEventsForDay, AddEventFromDownloadedSchedule addEventFromDownloadedSchedule, RemoveEvent removeEvent, DateFormat timeFormat, int menuId, AppContainer appContainer) {
         this.getEventsForDay = getEventsForDay;
         this.addEventFromDownloadedSchedule = addEventFromDownloadedSchedule;
         this.removeEvent = removeEvent;
         this.timeFormat = timeFormat;
         this.menuId = menuId;
+        this.appContainer = appContainer;
     }
 
     private List<ScheduleEvent> mapEventListToScheduleEventList(List<Event> list) {
@@ -121,8 +126,7 @@ public class ScheduleDayViewModel extends ViewModel {
             deleteEvent(position);
         }
         if (itemId == R.id.add_event_to_schedule_item) {
-            new Thread(() ->
-            {
+            new Thread(() -> {
                 try {
                     addEventFromDownloadedSchedule.add(Objects.requireNonNull(scheduleEventList.getValue()).get(position).getEvent());
                     loadSchedule();
@@ -132,6 +136,16 @@ public class ScheduleDayViewModel extends ViewModel {
             }
             ).start();
         }
+        if (itemId == R.id.update_event_item) {
+            new Thread(() -> {
+                appContainer.initCreateEventViewModelFactory(
+                        Objects.requireNonNull(scheduleEventList.getValue()).get(position).getEvent());
+                navigateUpdate.postValue(null);
+            }).start();
+        }
+    }
 
+    public LiveData<Void> getNavigateUpdateLiveData() {
+        return navigateUpdate;
     }
 }

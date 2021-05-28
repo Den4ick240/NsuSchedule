@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -52,8 +51,6 @@ public class ImportScheduleFragment extends Fragment implements View.OnClickList
     }
 
     private void onScheduleReady(Void unused) {
-//        ((NavHostFragment)getParentFragmentManager().findFragmentById(R.id.nav_host_fragment))//cannot be cast to navhostfragment
-//                .getNavController()
         Navigation.findNavController(view)
                 .navigate(R.id.action_importScheduleFragment_to_downloadedScheduleFragment);
     }

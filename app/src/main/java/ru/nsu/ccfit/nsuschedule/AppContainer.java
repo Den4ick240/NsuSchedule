@@ -20,6 +20,7 @@ import java.util.function.Function;
 import ru.nsu.ccfit.nsuschedule.data.SharedPreferencesSettingsRepository;
 import ru.nsu.ccfit.nsuschedule.data.json_repository.JsonRepository;
 import ru.nsu.ccfit.nsuschedule.domain.ScheduleNotificationManager;
+import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Repeating;
 import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
 import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryWithNotifications;
@@ -54,6 +55,7 @@ public class AppContainer {
 
     private final Context context;
     private final Repository repository;
+    private ViewModelProvider.Factory updateEventViewModelFactory;
 
     public ViewModelProvider.Factory getScheduleDayViewModelFactory(String flowName) {
         if (flowName.equals(LOCAL_SCHEDULE_FLOW)) return scheduleDayViewModelFactory;
@@ -87,10 +89,9 @@ public class AppContainer {
         setupNextNotification = new SetupNextNotification(15, scheduleNotificationManager,
                 baseRepository, timeFormat, settingsRepository);
         repository = new RepositoryWithNotifications(baseRepository, setupNextNotification);
-//        repository = new JsonRepository(context);
         scheduleDayViewModelFactory = createFactory(unused ->
                 new ScheduleDayViewModel(new GetEventsForDay(repository), null,
-                        new RemoveEvent(repository), timeFormat, R.menu.event_context_menu));
+                        new RemoveEvent(repository), timeFormat, R.menu.event_context_menu, this));
         createEventViewModelFactory = createFactory(unused ->
                 new CreateEventViewModel(getRepeatingEnumTranslationMap(), new AddEvent(repository), timeFormat));
         importScheduleViewModelFactory = createFactory(unused ->
@@ -112,8 +113,17 @@ public class AppContainer {
         downloadedScheduleDayViewModelFactory = createFactory(unused ->
             new ScheduleDayViewModel(new GetEventsForDay(downloadedRepository),
                     new AddEventFromDownloadedSchedule(new AddEvent(repository), downloadedRepository), null,
-                    timeFormat, R.menu.downloaded_schedule_context_menu));
+                    timeFormat, R.menu.downloaded_schedule_context_menu, null));
         downloadedScheduleViewModelFactory = createFactory(unused ->
                 new DownloadedScheduleViewModel(new AddAllEvents(repository, downloadedRepository)));
+    }
+
+    public void initCreateEventViewModelFactory(Event updatableEvent) {
+        updateEventViewModelFactory = createFactory(unused ->
+                new CreateEventViewModel(getRepeatingEnumTranslationMap(), new AddEvent(repository), timeFormat, updatableEvent));
+    }
+
+    public ViewModelProvider.Factory getUpdateEventViewModelFactory() {
+        return updateEventViewModelFactory;
     }
 }

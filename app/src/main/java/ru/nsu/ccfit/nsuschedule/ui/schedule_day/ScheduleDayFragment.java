@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -90,6 +91,8 @@ public class ScheduleDayFragment extends Fragment {
         DaysAdapter adapter = new DaysAdapter();
         model.setDay(day);
         model.getScheduleEventList().observe(getViewLifecycleOwner(), adapter::setEventList);
+        model.getNavigateUpdateLiveData().observe(getViewLifecycleOwner(), unused ->
+                Navigation.findNavController(view).navigate(R.id.updateEventFragment));
         listView.setAdapter(adapter);
     }
 
