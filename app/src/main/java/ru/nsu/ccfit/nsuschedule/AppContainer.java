@@ -83,10 +83,10 @@ public class AppContainer {
         String filePath = context.getFilesDir().getPath() + "/downloadedFile.ics";
         Repository baseRepository = new JsonRepository(context);
         scheduleNotificationManager = new AndroidScheduleNotificationManager(context);
-        setupNextNotification = new SetupNextNotification(15, scheduleNotificationManager,
-                baseRepository, timeFormat);
-        repository = new RepositoryWithNotifications(baseRepository, setupNextNotification);
         settingsRepository = new SharedPreferencesSettingsRepository(context);
+        setupNextNotification = new SetupNextNotification(15, scheduleNotificationManager,
+                baseRepository, timeFormat, settingsRepository);
+        repository = new RepositoryWithNotifications(baseRepository, setupNextNotification);
 //        repository = new JsonRepository(context);
         scheduleDayViewModelFactory = createFactory(unused ->
                 new ScheduleDayViewModel(new GetEventsForDay(repository), null,

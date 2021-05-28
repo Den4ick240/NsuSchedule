@@ -25,13 +25,15 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        ((SwitchMaterial) view.findViewById(R.id.notifications_switch))
-                .setOnCheckedChangeListener(this::onNotificationsCheckedChanged);
-        ((SwitchMaterial) view.findViewById(R.id.alarms_switch))
-                .setOnCheckedChangeListener(this::onAlarmsCheckedChanged);
-        settingsRepository = ((ApplicationWithAppContainer)requireActivity().getApplication())
+        settingsRepository = ((ApplicationWithAppContainer) requireActivity().getApplication())
                 .getAppContainer().settingsRepository;
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        SwitchMaterial notificationsSwitch = view.findViewById(R.id.notifications_switch);
+        notificationsSwitch.setChecked(settingsRepository.notificationsEnabled());
+        notificationsSwitch.setOnCheckedChangeListener(this::onNotificationsCheckedChanged);
+        SwitchMaterial alarmsSwitch = view.findViewById(R.id.alarms_switch);
+        alarmsSwitch.setChecked(settingsRepository.alarmsEnabled());
+        alarmsSwitch.setOnCheckedChangeListener(this::onAlarmsCheckedChanged);
         return view;
     }
 

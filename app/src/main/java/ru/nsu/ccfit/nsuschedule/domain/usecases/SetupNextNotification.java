@@ -8,6 +8,7 @@ import ru.nsu.ccfit.nsuschedule.domain.ScheduleNotificationManager;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
 import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
+import ru.nsu.ccfit.nsuschedule.domain.repository.SettingsRepository;
 import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
 
 public class SetupNextNotification {
@@ -15,17 +16,20 @@ public class SetupNextNotification {
     private final ScheduleNotificationManager notificationManager;
     private final Repository repository;
     private final DateFormat timeFormat;
+    private final SettingsRepository settingsRepository;
 
     public SetupNextNotification(int notificationMinutesBeforeEvent,
                                  ScheduleNotificationManager notificationManager,
-                                 Repository repository, DateFormat timeFormat) {
+                                 Repository repository, DateFormat timeFormat, SettingsRepository settingsRepository) {
         this.notificationMinutesBeforeEvent = notificationMinutesBeforeEvent;
         this.notificationManager = notificationManager;
         this.repository = repository;
         this.timeFormat = timeFormat;
+        this.settingsRepository = settingsRepository;
     }
 
     public void invoke() throws RepositoryException {
+        if (!settingsRepository.notificationsEnabled()) return;
         Calendar now = Calendar.getInstance();
         now.add(Calendar.MINUTE, notificationMinutesBeforeEvent);
         repository.getEventsInRange(now.getTime(), new Date(Long.MAX_VALUE))
