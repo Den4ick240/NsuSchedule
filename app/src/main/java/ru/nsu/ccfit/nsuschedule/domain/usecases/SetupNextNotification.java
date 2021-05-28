@@ -46,7 +46,7 @@ public class SetupNextNotification {
         Calendar c = Calendar.getInstance();
         c.setTime(event.getStartTime());
         c.add(Calendar.MINUTE, -notificationMinutesBeforeEvent);
-        notificationManager.setNextNotification(c, event);
+        notificationManager.setNextNotification(c, settingsRepository.alarmsEnabled(), event);
     }
 
     private ScheduleEvent mapToScheduleEvent(Event e) {

@@ -16,6 +16,7 @@ import ru.nsu.ccfit.nsuschedule.ApplicationWithAppContainer;
 import ru.nsu.ccfit.nsuschedule.R;
 import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 
+import static ru.nsu.ccfit.nsuschedule.notifications.AndroidScheduleNotificationManager.ALARMS_KEY;
 import static ru.nsu.ccfit.nsuschedule.notifications.AndroidScheduleNotificationManager.CONTENT_KEY;
 import static ru.nsu.ccfit.nsuschedule.notifications.AndroidScheduleNotificationManager.TITLE_KEY;
 
@@ -27,11 +28,17 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
     private PendingResult pendingResult;
     private AppContainer appContainer;
 
+    private String title;
+    private String text;
+    private Context context;
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        this.context = context;
         appContainer = ((ApplicationWithAppContainer) context.getApplicationContext()).getAppContainer();
-        String title = intent.getStringExtra(TITLE_KEY);
-        String text = intent.getStringExtra(CONTENT_KEY);
+        title = intent.getStringExtra(TITLE_KEY);
+        text = intent.getStringExtra(CONTENT_KEY);
+        boolean alarmsOn = intent.getBooleanExtra(ALARMS_KEY, true);
         Notification.Builder builder = new Notification.Builder(context);
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -44,12 +51,25 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
         }
         Notification notification = builder
                 .setContentTitle(title)
-                .setContentText(text)
+                .setStyle(new Notification.BigTextStyle().bigText(text))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .build();
         notificationManager.notify(NOTIFICATION_ID, notification);
+
+        if (alarmsOn) {
+            startAlarm();
+        }
         pendingResult = goAsync();
         new Thread(this::setNext).start();
+    }
+
+    private void startAlarm() {
+        Intent intent =
+                new Intent(context, AlarmActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(TITLE_KEY, title);
+        intent.putExtra(CONTENT_KEY, text);
+        context.startActivity(intent);
     }
 
     private void setNext() {

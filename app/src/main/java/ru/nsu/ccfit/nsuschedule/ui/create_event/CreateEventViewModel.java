@@ -35,7 +35,8 @@ public class CreateEventViewModel extends ViewModel {
                 new EventDate(new Date(), new Date(), Repeating.ONCE)));
     }
 
-    public CreateEventViewModel(Map<String, Repeating> repeatingEnumTranslationMap, AddEvent addEvent, DateFormat timeFormat, Event initialEvent) {
+    public CreateEventViewModel(Map<String, Repeating> repeatingEnumTranslationMap, AddEvent addEvent, DateFormat timeFormat,
+                                Event initialEvent) {
         repeatingStringToEnumMap = repeatingEnumTranslationMap;
         this.addEvent = addEvent;
         this.timeFormat = timeFormat;
@@ -163,5 +164,12 @@ public class CreateEventViewModel extends ViewModel {
 
     public String getLocation() {
         return initialEvent.getInfo().getLocation();
+    }
+
+    public String getRepeating() {
+        return repeatingStringToEnumMap.entrySet().stream()
+                .filter(e -> e.getValue().equals(initialEvent.getDate().getRepeating()))
+                .findFirst().map(Map.Entry::getKey)
+                .orElse("");
     }
 }

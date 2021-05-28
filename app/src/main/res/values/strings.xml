@@ -17,11 +17,11 @@
     <string name="description">Описание</string>
     <string name="location">Место</string>
     <string name="create_event_button_title">Создать событие</string>
-    <string name="update_event_button_title">Обновить событие</string>
+    <string name="update_event_button_title">Изменить</string>
     <string name="create_event_choose_date_title">Выберите дату</string>
     <string name="create_event_start_time_title">Время начала</string>
     <string name="create_event_end_time_title">Время окончания</string>
-    <string name="event_context_menu_delete_event_title">Удалить событие</string>
+    <string name="event_context_menu_delete_event_title">Удалить</string>
 
 
     <string-array name="repeating_enum_values">
@@ -57,4 +57,5 @@
     <string name="settings_fragment_label">Настройки</string>
     <string name="downloaded_schedule_fragment_label">Просмотр расписания</string>
     <string name="update_event_fragment_label">Изменение события</string>
+    <string name="stop_alarm_button_label">Выключить будильник</string>
 </resources>

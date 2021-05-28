@@ -67,7 +67,6 @@ public abstract class BaseEventFragment extends Fragment implements View.OnClick
         return view;
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -76,6 +75,7 @@ public abstract class BaseEventFragment extends Fragment implements View.OnClick
         summary.getEditText().setText(viewModel.getSummary());
         description.getEditText().setText(viewModel.getDescription());
         location.getEditText().setText(viewModel.getLocation());
+        repeating.setText(viewModel.getRepeating());
         initDatePicker();
         initEndTimePicker();
         initStartTimePicker();

@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".ApplicationWithAppContainer"
@@ -13,20 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NsuSchedule">
+        <activity android:name=".notifications.AlarmActivity"></activity>
         <activity
-            android:permission=""
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.NsuSchedule.NoActionBar"
-            android:screenOrientation="portrait">
+            android:permission=""
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NsuSchedule.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".notifications.NotificationBroadcastReceiver">
-        </receiver>
+
+        <receiver android:name=".notifications.NotificationBroadcastReceiver"></receiver>
     </application>
 
 </manifest>
