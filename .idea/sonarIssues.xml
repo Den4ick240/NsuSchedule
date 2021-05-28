@@ -133,6 +133,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/Event.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventDate.java">
           <value>
             <set />

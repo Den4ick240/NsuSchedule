@@ -32,6 +32,12 @@ public class JsonEvent {
     @SerializedName("repeatUntilDate")
     private Date repeatUntilDate;
 
+    @SerializedName("notificationsOn")
+    private Boolean notificationsOn;
+
+    @SerializedName("alarmsOn")
+    private Boolean alarmsOn;
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -46,6 +52,14 @@ public class JsonEvent {
 
     public void setRepeating(Repeating repeating) {
         this.repeating = repeating;
+    }
+
+    public void setNotificationsOn(Boolean notificationsOn) {
+        this.notificationsOn = notificationsOn;
+    }
+
+    public void setAlarmsOn(Boolean alarmsOn) {
+        this.alarmsOn = alarmsOn;
     }
 
     public void setStartDate(Date startDate) {
@@ -68,13 +82,20 @@ public class JsonEvent {
         endDate = event.getDate().getEndDate();
         repeating = event.getDate().getRepeating();
         repeatUntilDate = event.getDate().getRepeatUntilDate();
+        alarmsOn = event.isAlarmsOn();
+        notificationsOn = event.isNotificationsOn();
     }
 
     public JsonEvent() {
     }
 
     public Event getEvent() {
-        return new Event(new EventInfo(summary, description, location), new EventDate(startDate, endDate, repeating, repeatUntilDate));
+        EventInfo eventInfo = new EventInfo(summary, description, location);
+        EventDate eventDate = new EventDate(startDate, endDate, repeating, repeatUntilDate);
+        if (alarmsOn != null && notificationsOn != null)
+            return new Event(eventInfo, eventDate, notificationsOn, alarmsOn);
+        else
+            return new Event(eventInfo, eventDate);
     }
 
     @Override
@@ -87,11 +108,13 @@ public class JsonEvent {
                 location.equals(jsonEvent.location) &&
                 repeating == jsonEvent.repeating &&
                 startDate.equals(jsonEvent.startDate) &&
-                endDate.equals(jsonEvent.endDate);
+                endDate.equals(jsonEvent.endDate) &&
+                alarmsOn.equals(jsonEvent.alarmsOn) &&
+                notificationsOn.equals(jsonEvent.notificationsOn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, summary, location, repeating, startDate, endDate);
+        return Objects.hash(description, summary, location, repeating, startDate, endDate, alarmsOn, notificationsOn);
     }
 }
