@@ -18,9 +18,9 @@ class EventOccurrenceTest {
     @BeforeEach
     void setUp() {
         calendar = Calendar.getInstance();
-        calendar.set(1, 1, 1, 0, 0);
+        calendar.set(1, Calendar.FEBRUARY, 1, 0, 0);
         startDate = calendar.getTime();
-        calendar.set(1, 1, 1, 1, 0);
+        calendar.set(1, Calendar.FEBRUARY, 1, 1, 0);
         endDate = calendar.getTime();
         eventOccurrence = new EventOccurrence(startDate, endDate);
     }
@@ -61,9 +61,9 @@ class EventOccurrenceTest {
     @Test
     void setStart() {
         eventOccurrence.setStart(Calendar.DATE, 2);
-        calendar.set(1, 1, 2, 0, 0);
+        calendar.set(1, Calendar.FEBRUARY, 2, 0, 0);
         assertThat(eventOccurrence.getStartDate(), equalTo(calendar.getTime()));
-        calendar.set(1, 1, 2, 1, 0);
+        calendar.set(1, Calendar.FEBRUARY, 2, 1, 0);
         assertThat(eventOccurrence.getEndDate(), equalTo(calendar.getTime()));
     }
 
