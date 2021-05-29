@@ -51,6 +51,7 @@ public class ImportScheduleFragment extends Fragment implements View.OnClickList
     }
 
     private void onScheduleReady(Void unused) {
+        viewModel.clearScheduleReady();
         Navigation.findNavController(view)
                 .navigate(R.id.action_importScheduleFragment_to_downloadedScheduleFragment);
     }

@@ -79,7 +79,7 @@ public abstract class BaseEventFragment extends Fragment implements View.OnClick
         summary.getEditText().setText(viewModel.getSummary());
         description.getEditText().setText(viewModel.getDescription());
         location.getEditText().setText(viewModel.getLocation());
-        repeating.setText(viewModel.getRepeating());
+        repeating.setText(viewModel.getRepeating(), false);
         notificationSwitch.setChecked(viewModel.getNotificationsEnabled());
         alarmSwitch.setChecked(viewModel.getAlarmsEnabled());
         initDatePicker();

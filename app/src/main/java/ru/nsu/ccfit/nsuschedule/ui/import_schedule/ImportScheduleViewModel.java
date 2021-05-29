@@ -15,7 +15,7 @@ import ru.nsu.ccfit.nsuschedule.domain.usecases.AddScheduleFromUrl;
 public class ImportScheduleViewModel extends ViewModel {
     private final AddScheduleFromUrl addScheduleFromUrl;
     private final String nsuLinkForGroup;
-    private final MutableLiveData<Void> scheduleReady = new MutableLiveData<>();
+    private MutableLiveData<Void> scheduleReady = new MutableLiveData<>();
 
     public ImportScheduleViewModel(AddScheduleFromUrl addScheduleFromUrl, String nsuLinkForGroup) {
         this.addScheduleFromUrl = addScheduleFromUrl;
@@ -45,5 +45,9 @@ public class ImportScheduleViewModel extends ViewModel {
 
     public LiveData<Void> getScheduleReady() {
         return scheduleReady;
+    }
+
+    public void clearScheduleReady() {
+        scheduleReady = new MutableLiveData<>();
     }
 }

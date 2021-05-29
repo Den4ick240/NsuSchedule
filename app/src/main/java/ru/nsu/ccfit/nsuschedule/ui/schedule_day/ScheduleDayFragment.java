@@ -92,7 +92,10 @@ public class ScheduleDayFragment extends Fragment {
         model.setDay(day);
         model.getScheduleEventList().observe(getViewLifecycleOwner(), adapter::setEventList);
         model.getNavigateUpdateLiveData().observe(getViewLifecycleOwner(), unused ->
-                Navigation.findNavController(view).navigate(R.id.updateEventFragment));
+        {
+            model.clearNavigateUpdateLiveData();
+            Navigation.findNavController(view).navigate(R.id.updateEventFragment);
+        });
         listView.setAdapter(adapter);
     }
 

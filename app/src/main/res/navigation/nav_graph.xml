@@ -20,7 +20,8 @@
         tools:layout="@layout/fragment_import_schedule" >
         <action
             android:id="@+id/action_importScheduleFragment_to_downloadedScheduleFragment"
-            app:destination="@id/downloadedScheduleFragment" />
+            app:destination="@id/downloadedScheduleFragment"
+            app:popUpTo="@id/importScheduleFragment"/>
     </fragment>
     <fragment
         android:id="@+id/downloadedScheduleFragment"
@@ -34,7 +35,15 @@
     <fragment
         android:id="@+id/updateEventFragment"
         android:name="ru.nsu.ccfit.nsuschedule.ui.create_event.UpdateEventFragment"
-        android:label="@string/update_event_fragment_label" />
+        android:label="@string/update_event_fragment_label"
+        >
+        <action
+            android:id="@+id/action_updateEventFragment_pop"
+            app:popUpTo="@id/weekScheduleFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
 
 </navigation>
 

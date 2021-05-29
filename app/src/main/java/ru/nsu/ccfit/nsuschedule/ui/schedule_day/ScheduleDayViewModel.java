@@ -33,7 +33,7 @@ import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
 public class ScheduleDayViewModel extends ViewModel {
     private final MutableLiveData<List<ScheduleEvent>> scheduleEventList =
             new MutableLiveData<>();
-    private final MutableLiveData<Void> navigateUpdate = new MutableLiveData<>();
+    private MutableLiveData<Void> navigateUpdate = new MutableLiveData<>();
     private Date day;
     private final GetEventsForDay getEventsForDay;
     private final AddEventFromDownloadedSchedule addEventFromDownloadedSchedule;
@@ -147,5 +147,9 @@ public class ScheduleDayViewModel extends ViewModel {
 
     public LiveData<Void> getNavigateUpdateLiveData() {
         return navigateUpdate;
+    }
+
+    public void clearNavigateUpdateLiveData() {
+        navigateUpdate = new MutableLiveData<>();
     }
 }
