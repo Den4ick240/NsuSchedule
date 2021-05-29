@@ -12,6 +12,13 @@ plugins {
 //    jacocoVersion = '0.8.6' // type String
 //
 //}
+sonarqube {
+    properties {
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.coverage.jacoco.xmlReportPaths", "$rootDir/lib/build/reports/jacoco/test/jacocoTestReport.xml"
+    }
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -54,7 +61,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'androidx.preference:preference:1.1.1'
-    implementation project(path: ':lib')
+    implementation project(path: ':domain')
     compile 'org.mnode.ical4j:ical4j:1.0.5'
     compile 'backport-util-concurrent:backport-util-concurrent:3.1'
     compile 'commons-codec:commons-codec:1.13'

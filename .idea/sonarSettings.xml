@@ -2,7 +2,7 @@
 <project version="4">
   <component name="projectSettings">
     <option name="alternativeWorkingDirPath" value="" />
-    <option name="localAnalysisScripName" value="my script" />
+    <option name="localAnalysisScripName" value="sonarQubeReport" />
     <option name="resources">
       <list>
         <Resource>
