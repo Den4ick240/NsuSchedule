@@ -1,12 +1,9 @@
-package ru.nsu.ccfit.nsuschedule.ui;
+package ru.nsu.ccfit.nsuschedule.domain.entities;
 
 
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
-
-import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
-import ru.nsu.ccfit.nsuschedule.domain.entities.EventOccurrence;
 
 public class ScheduleEvent implements Serializable {
     private final Event e;

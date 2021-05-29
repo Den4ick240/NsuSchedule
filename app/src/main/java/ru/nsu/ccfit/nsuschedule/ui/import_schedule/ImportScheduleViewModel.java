@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import ru.nsu.ccfit.nsuschedule.domain.usecases.AddScheduleFromUrl;
+import ru.nsu.ccfit.nsuschedule.data.AddScheduleFromUrl;
 
 public class ImportScheduleViewModel extends ViewModel {
     private final AddScheduleFromUrl addScheduleFromUrl;

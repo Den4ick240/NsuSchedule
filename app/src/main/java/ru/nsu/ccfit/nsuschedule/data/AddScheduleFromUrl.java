@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.nsuschedule.domain.usecases;
+package ru.nsu.ccfit.nsuschedule.data;
 
 import net.fortuna.ical4j.data.ParserException;
 
@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.List;
 
 import ru.nsu.ccfit.nsuschedule.AppContainer;
-import ru.nsu.ccfit.nsuschedule.data.CollectionRepository;
 import ru.nsu.ccfit.nsuschedule.data.nsu.ics.parser.NsuIcsParser;
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 

@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.nsuschedule.ui.week_schedule;
 
 import org.junit.Test;
+//import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.List;

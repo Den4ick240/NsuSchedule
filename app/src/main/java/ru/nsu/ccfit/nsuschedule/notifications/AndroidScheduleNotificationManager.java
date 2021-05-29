@@ -8,7 +8,7 @@ import android.content.Intent;
 import java.util.Calendar;
 
 import ru.nsu.ccfit.nsuschedule.domain.ScheduleNotificationManager;
-import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
+import ru.nsu.ccfit.nsuschedule.domain.entities.ScheduleEvent;
 
 public class AndroidScheduleNotificationManager implements ScheduleNotificationManager {
     public static final String TITLE_KEY = "TITLE_KEY";

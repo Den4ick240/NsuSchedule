@@ -10,8 +10,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import ru.nsu.ccfit.nsuschedule.data.json_repository.JsonRepository;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
@@ -30,7 +28,7 @@ class EventDateTest {
     @BeforeEach
     void setUp() {
         calendar = Calendar.getInstance();
-        calendar.set(1, 1, 2);
+        calendar.set(1, Calendar.FEBRUARY, 2);
         startDate = calendar.getTime();
         calendar.add(Calendar.HOUR_OF_DAY, 1);
         endDate = calendar.getTime();

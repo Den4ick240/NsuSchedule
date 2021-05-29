@@ -25,7 +25,7 @@ import java.util.List;
 
 import ru.nsu.ccfit.nsuschedule.ApplicationWithAppContainer;
 import ru.nsu.ccfit.nsuschedule.R;
-import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
+import ru.nsu.ccfit.nsuschedule.domain.entities.ScheduleEvent;
 
 
 public class ScheduleDayFragment extends Fragment {

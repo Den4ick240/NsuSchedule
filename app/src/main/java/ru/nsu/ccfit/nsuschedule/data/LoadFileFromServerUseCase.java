@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.nsuschedule.domain.usecases;
+package ru.nsu.ccfit.nsuschedule.data;
 
 import android.util.Log;
 

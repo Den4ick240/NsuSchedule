@@ -1,9 +1,5 @@
 package ru.nsu.ccfit.nsuschedule.domain.entities;
 
-import androidx.annotation.NonNull;
-
-import org.jetbrains.annotations.NotNull;
-
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,7 +23,7 @@ public class EventOccurrence implements Serializable {
         return !startsBefore(startDate) && startsBefore(endDate);
     }
 
-    public boolean startsBefore(@NotNull Date when) {
+    public boolean startsBefore(Date when) {
         return startDate.getTime().before(when);
     }
 
@@ -79,8 +75,6 @@ public class EventOccurrence implements Serializable {
         return Objects.hash(startDate, endDate);
     }
 
-    @NonNull
-    @NotNull
     @Override
     public String toString() {
         return super.toString() + "{\n\t" + startDate.toString() + "\n\t" + endDate.toString() + "}";

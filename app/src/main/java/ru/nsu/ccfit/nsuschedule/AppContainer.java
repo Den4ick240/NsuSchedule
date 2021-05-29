@@ -28,7 +28,7 @@ import ru.nsu.ccfit.nsuschedule.domain.repository.SettingsRepository;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddAllEvents;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEvent;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEventFromDownloadedSchedule;
-import ru.nsu.ccfit.nsuschedule.domain.usecases.AddScheduleFromUrl;
+import ru.nsu.ccfit.nsuschedule.data.AddScheduleFromUrl;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.RemoveEvent;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.SetupNextNotification;

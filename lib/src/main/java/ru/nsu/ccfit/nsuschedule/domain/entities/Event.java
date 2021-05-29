@@ -1,6 +1,5 @@
 package ru.nsu.ccfit.nsuschedule.domain.entities;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
@@ -45,7 +44,6 @@ public class Event implements Serializable {
         return notificationsOn;
     }
 
-    @NotNull
     @Override
     public String toString() {
         return "Event {" + info + " " + date + "}";

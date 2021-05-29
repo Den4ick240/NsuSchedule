@@ -9,7 +9,7 @@ import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
 import ru.nsu.ccfit.nsuschedule.domain.repository.Repository;
 import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 import ru.nsu.ccfit.nsuschedule.domain.repository.SettingsRepository;
-import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
+import ru.nsu.ccfit.nsuschedule.domain.entities.ScheduleEvent;
 
 public class SetupNextNotification {
     private final int notificationMinutesBeforeEvent;

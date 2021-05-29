@@ -6,11 +6,40 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.1'
-
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+//        classpath "com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
+//apply plugin: "com.vanniktech.android.junit.jacoco"
+//
+//ext.junitJupiterVersion = '5.0.0'
+//subprojects {
+//    repositories {
+//        mavenCentral()
+//    }
+//
+//    apply plugin: 'java'
+//
+//    apply plugin: 'org.junit.platform.gradle.plugin'
+//
+//    apply plugin: 'jacoco'
+//    jacoco {
+//        toolVersion = '0.7.9'
+//        applyTo junitPlatformTest
+//    }
+//    junitPlatformTest {
+//        jacoco {
+//            destinationFile = file("$buildDir/jacoco/test.exec")
+//        }
+//    }
+//
+//    dependencies {
+//        testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+//        testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+//    }
+//}
 
 allprojects {
     repositories {

@@ -18,6 +18,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/build/reports/androidTests/connected/index.html">
           <value>
             <set />
@@ -63,6 +68,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/data/AddScheduleFromUrl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/data/CollectionRepository.java">
           <value>
             <set />
@@ -74,6 +84,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/data/JsonRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/ru/nsu/ccfit/nsuschedule/data/LoadFileFromServerUseCase.java">
           <value>
             <set />
           </value>
@@ -634,6 +649,66 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/test/java/ru/nsu/ccfit/nsuschedule/domain/entities/StartsBetweenMatcher.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/ru/nsu/ccfit/nsuschedule/ui/week_schedule/WeekTabNamesProviderTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/lib/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/lib/src/main/java/ru/nsu/ccfit/nsuschedule/domain/ScheduleNotificationManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/lib/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/Event.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/lib/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventDate.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/lib/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventInfo.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/lib/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventOccurrence.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/lib/src/main/java/ru/nsu/ccfit/nsuschedule/domain/entities/ScheduleEvent.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/lib/src/main/java/ru/nsu/ccfit/nsuschedule/domain/usecases/SetupNextNotification.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/lib/src/test/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventDateTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/lib/src/test/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventOccurrenceTest.java">
           <value>
             <set />
           </value>

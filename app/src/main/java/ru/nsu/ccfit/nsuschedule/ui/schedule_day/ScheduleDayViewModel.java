@@ -28,7 +28,7 @@ import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.AddEventFromDownloadedSchedule;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.GetEventsForDay;
 import ru.nsu.ccfit.nsuschedule.domain.usecases.RemoveEvent;
-import ru.nsu.ccfit.nsuschedule.ui.ScheduleEvent;
+import ru.nsu.ccfit.nsuschedule.domain.entities.ScheduleEvent;
 
 public class ScheduleDayViewModel extends ViewModel {
     private final MutableLiveData<List<ScheduleEvent>> scheduleEventList =

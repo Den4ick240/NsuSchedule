@@ -1,6 +1,5 @@
 package ru.nsu.ccfit.nsuschedule.domain.entities;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -116,7 +115,6 @@ public class EventDate implements Serializable {
         return repeatUntilDate;
     }
 
-    @NotNull
     @Override
     public String toString() {
         return "EventDate{" +

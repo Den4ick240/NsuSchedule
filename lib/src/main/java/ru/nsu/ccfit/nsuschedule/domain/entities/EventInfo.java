@@ -1,6 +1,5 @@
 package ru.nsu.ccfit.nsuschedule.domain.entities;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
@@ -43,7 +42,6 @@ public class EventInfo implements Serializable {
         this.location = location;
     }
 
-    @NotNull
     @Override
     public String toString() {
         return "descr=" + description + " sum=" + summary + " locat=" + location;
