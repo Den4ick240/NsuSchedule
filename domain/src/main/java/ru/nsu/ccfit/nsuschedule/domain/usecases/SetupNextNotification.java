@@ -11,7 +11,7 @@ import ru.nsu.ccfit.nsuschedule.domain.repository.RepositoryException;
 import ru.nsu.ccfit.nsuschedule.domain.repository.SettingsRepository;
 import ru.nsu.ccfit.nsuschedule.domain.entities.ScheduleEvent;
 
-public class SetupNextNotification {
+public class SetupNextNotification implements NoParamUseCase{
     private final int notificationMinutesBeforeEvent;
     private final ScheduleNotificationManager notificationManager;
     private final Repository repository;
@@ -28,6 +28,7 @@ public class SetupNextNotification {
         this.settingsRepository = settingsRepository;
     }
 
+    @Override
     public void invoke() throws RepositoryException {
         if (!settingsRepository.notificationsEnabled()) return;
         Calendar now = Calendar.getInstance();

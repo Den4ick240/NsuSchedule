@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import ru.nsu.ccfit.nsuschedule.domain.entities.Event;
-import ru.nsu.ccfit.nsuschedule.domain.usecases.SetupNextNotification;
+import ru.nsu.ccfit.nsuschedule.domain.usecases.NoParamUseCase;
 
 public class RepositoryWithNotifications implements Repository {
     private final Repository repository;
-    private final SetupNextNotification setupNextNotification;
+    private final NoParamUseCase setupNextNotification;
 
-    public RepositoryWithNotifications(Repository repository, SetupNextNotification setupNextNotification) {
+    public RepositoryWithNotifications(Repository repository, NoParamUseCase setupNextNotification) {
         this.repository = repository;
         this.setupNextNotification = setupNextNotification;
     }

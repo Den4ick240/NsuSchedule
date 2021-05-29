@@ -458,6 +458,66 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/domain/src/main/java/ru/nsu/ccfit/nsuschedule/domain/repository/RepositoryWithNotifications.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/main/java/ru/nsu/ccfit/nsuschedule/domain/usecases/NoParamUseCase.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/main/java/ru/nsu/ccfit/nsuschedule/domain/usecases/NoParamUsecase.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/main/java/ru/nsu/ccfit/nsuschedule/domain/usecases/SetupNextNotification.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/ru/nsu/ccfit/nsuschedule/domain/TestRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/ru/nsu/ccfit/nsuschedule/domain/entities/EventTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/ru/nsu/ccfit/nsuschedule/domain/entities/ScheduleEventTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/ru/nsu/ccfit/nsuschedule/domain/repository/RepositoryWithNotificationsTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/ru/nsu/ccfit/nsuschedule/domain/usecases/AddAllEventsTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/ru/nsu/ccfit/nsuschedule/domain/usecases/AddEventFromDownloadedScheduleTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/ru/nsu/ccfit/nsuschedule/domain/usecases/GetEventsForDayTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/ru/nsu/ccfit/nsuschedule/domain/usecases/SetupNextNotificationTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/gradle.properties">
           <value>
             <set />
